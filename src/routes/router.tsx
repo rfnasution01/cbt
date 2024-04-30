@@ -1,11 +1,20 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { NotFoundPage, RootLayout } from './loadables'
+import { CBTLayout, LoginLayout, NotFoundPage, RootLayout } from './loadables'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    children: [],
+    children: [
+      {
+        path: '',
+        element: <CBTLayout />,
+      },
+      {
+        path: 'login',
+        element: <LoginLayout />,
+      },
+    ],
   },
   {
     path: '*',

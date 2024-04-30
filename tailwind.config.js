@@ -86,7 +86,7 @@ export default {
           tint: { 1: '#F2F8FF', 2: '#F3FAFF', 3: '#E6F4F1' },
         },
         secondary: {
-          DEFAULT: '#03DAC5',
+          DEFAULT: '#333333',
           shade: { 100: '#6b7280' },
         },
         destructive: {
