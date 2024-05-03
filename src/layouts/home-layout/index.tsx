@@ -1,9 +1,9 @@
-import { Outlet } from 'react-router-dom'
 import { AsideNavigationHome } from './aside-navigation'
 import { AsideInfoHome } from './aside-info'
 import { useEffect, useState } from 'react'
 import { BiodataType } from '@/libs/types/biodata-type'
 import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
+import { ContentHome } from './content'
 
 export default function HomeLayout() {
   const [dataBiodata, setDataBiodata] = useState<BiodataType>()
@@ -25,9 +25,7 @@ export default function HomeLayout() {
       <div className="scrollbar col-span-2 h-full overflow-y-auto bg-white phones:hidden">
         <AsideNavigationHome disabled={disabled} />
       </div>
-      <div className="scrollbar col-span-8 h-full overflow-y-auto bg-gradient-to-br from-purple-50 via-blue-50 to-orange-50 phones:col-span-12">
-        <Outlet />
-      </div>
+      <ContentHome />
       <div className="scrollbar col-span-2 h-full overflow-y-auto bg-white phones:hidden">
         <AsideInfoHome disabled={disabled} nama={dataBiodata?.pribadi?.nama} />
       </div>

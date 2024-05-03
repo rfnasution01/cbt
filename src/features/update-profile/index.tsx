@@ -60,7 +60,7 @@ export default function UpdateProfile({
         transition: Bounce,
       })
       setTimeout(() => {
-        navigate('/app/cbt')
+        navigate('/')
       }, 3000)
     }
   }, [biodataIsSuccess])

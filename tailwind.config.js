@@ -87,7 +87,7 @@ export default {
         },
         secondary: {
           DEFAULT: '#333333',
-          shade: { 100: '#6b7280' },
+          shade: { 100: '#03DAC5' },
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
