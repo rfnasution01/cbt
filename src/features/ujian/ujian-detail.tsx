@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { UjianDetailInformation } from './ujian-detail-information'
 import { UjianDetailPeraturan } from './ujian-detail-peraturan'
 import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 export function UjianDetail({
   data,
@@ -13,7 +14,34 @@ export function UjianDetail({
   ujianName?: string
   setPage?: Dispatch<SetStateAction<string>>
 }) {
+  const navigate = useNavigate()
   const ujianNow = data?.find((item) => item?.id_ujian === ujianName)
+
+  const handleStartExam = (item) => {
+    // Cek apakah mulaiUjian sudah ada di local storage
+    const existingData = localStorage.getItem('mulaiujian')
+    let startTime = null
+
+    // Jika sudah ada data, gunakan startTime dari data yang sudah ada
+    if (existingData) {
+      const existingStartTime = JSON.parse(existingData).startTime
+      if (existingStartTime) {
+        startTime = existingStartTime
+      }
+    } else {
+      // Jika belum ada data, buat startTime baru
+      startTime = new Date().toISOString()
+      const duration = item?.waktu_ujian
+
+      const dataToSave = {
+        startTime,
+        duration,
+      }
+
+      localStorage.setItem('mulaiujian', JSON.stringify(dataToSave))
+    }
+    navigate(`/cbt?idUjian=${item?.id_ujian}`)
+  }
 
   return (
     <div className="flex flex-col gap-32">
@@ -33,7 +61,9 @@ export function UjianDetail({
           </button>
           <button
             type="button"
-            className="flex flex-1 items-center justify-center gap-x-8 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 phones:w-full"
+            disabled={ujianNow?.status === 1}
+            onClick={() => handleStartExam(ujianNow)}
+            className="flex flex-1 items-center justify-center gap-x-8 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed disabled:hover:bg-primary-shade-500 phones:w-full"
           >
             <p>Mulai</p>
             <ArrowRightFromLine size={16} />

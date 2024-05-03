@@ -40,6 +40,7 @@ export type SoalUjianOptionsType = {
   id: string
   label: string
   value: string
+  urutan: string
 }
 
 export type SaveUjianParams = {

@@ -1,5 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
+  CBTLayout,
   ChangePasswordPage,
   HomeLayout,
   LoginLayout,
@@ -37,6 +38,19 @@ export const router = createBrowserRouter([
           { path: 'ganti-password', element: <ChangePasswordPage /> },
           { path: 'ujian', element: <UjianPage /> },
         ],
+      },
+      {
+        path: 'cbt',
+        element: <CBTLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
       },
       {
         path: 'update-profile',
