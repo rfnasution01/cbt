@@ -5,6 +5,7 @@ import {
   ChangePasswordPage,
   HasilUjianPage,
   HomeLayout,
+  HomePage,
   LoginLayout,
   LoginPage,
   NotFoundPage,
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
           return null
         },
         children: [
+          {
+            path: '',
+            element: <HomePage />,
+          },
           {
             path: 'profile',
             element: <ProfilePage />,

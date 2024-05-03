@@ -18,7 +18,7 @@ export function HeaderNavigationMobile({
   setIsShow: Dispatch<SetStateAction<boolean>>
 }) {
   const dispatch = useDispatch()
-  const { secondPathname } = usePathname()
+  const { firstPathname } = usePathname()
   const navigate = useNavigate()
   const token = Cookies.get('token')
 
@@ -34,14 +34,18 @@ export function HeaderNavigationMobile({
           'Ganti Password',
         ].map((item, idx) => (
           <Link
-            to={convertToSlug(item)}
+            to={
+              convertToSlug(item) === 'dashboard'
+                ? '/'
+                : `/${convertToSlug(item)}`
+            }
             className={clsx(
               'flex items-center justify-between gap-x-8 border-b py-8 hover:cursor-pointer',
               {
                 'text-primary':
                   capitalizeFirstLetterFromLowercase(item?.toLowerCase()) ===
-                    convertSlugToText(secondPathname) ||
-                  (secondPathname === undefined && item === 'Dashboard'),
+                    convertSlugToText(firstPathname) ||
+                  (firstPathname === '' && item === 'Dashboard'),
               },
             )}
             key={idx}
