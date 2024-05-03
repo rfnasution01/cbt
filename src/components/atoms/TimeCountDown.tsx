@@ -1,6 +1,11 @@
+import { konversiJaawaban } from '@/libs/helpers/format-jawaban'
+import { useCreateSaveJawabanMutation } from '@/store/slices/cbtAPI'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Bounce, ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const CountdownTimer = ({ waktuUjian = 10 }: { waktuUjian?: number }) => {
   const [time, setTime] = useState({
@@ -27,8 +32,23 @@ const CountdownTimer = ({ waktuUjian = 10 }: { waktuUjian?: number }) => {
   }, [])
 
   useEffect(() => {
+    if (time.minutes === 5 && time.seconds === 0) {
+      toast.error(`'Waktu tersisa kurang dari 5 Menit`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
     // Navigasi ke '/home' saat hitungan mundur selesai
-    if (time.minutes === 0 && time.seconds === 0) navigate('/app')
+    if (time.minutes === 0 && time.seconds === 0) {
+      handleSelesai()
+    }
   }, [time])
 
   // Konversi menit menjadi format waktu hh:mm
@@ -38,20 +58,91 @@ const CountdownTimer = ({ waktuUjian = 10 }: { waktuUjian?: number }) => {
       .padStart(2, '0')}`
   }
 
+  // --- Submit Jawaban ---
+  const [
+    submitJawaban,
+    { isSuccess, isError: submitIsError, error: submitError },
+  ] = useCreateSaveJawabanMutation()
+  const smartlearningData = JSON.parse(
+    localStorage.getItem('smartlearning') || '{}',
+  )
+
+  const handleSelesai = () => {
+    const data = konversiJaawaban(smartlearningData)
+
+    try {
+      submitJawaban({ data: data })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(`Jawaban berhasil disimpan!`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      localStorage.removeItem('smartlearning')
+      localStorage.removeItem('mulaiujian')
+      localStorage.removeItem('bookmarks')
+      setTimeout(() => {
+        navigate('/hasil-ujian')
+      }, 3000)
+    }
+  }, [isSuccess])
+
+  useEffect(() => {
+    if (submitIsError) {
+      const errorMsg = submitError as {
+        data?: {
+          message?: string
+        }
+        status?: number
+      }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      if (errorMsg?.status === 401) {
+        Cookies.remove('token')
+        navigate('/login')
+      }
+    }
+  }, [submitIsError, submitError])
+
   return (
-    <p>
-      Waktu Tersisa :{' '}
-      <span
-        className={clsx('text-[2rem] font-bold', {
-          'transform-gpu animate-pulse text-red-700 duration-500':
-            time?.minutes < 20,
-          'transform-gpu animate-pulse text-red-500 duration-100':
-            time?.minutes < 10,
-        })}
-      >
-        {formatTime(time)}
-      </span>
-    </p>
+    <>
+      <p>
+        Waktu Tersisa :{' '}
+        <span
+          className={clsx('text-[2rem] font-bold', {
+            'transform-gpu animate-pulse text-red-700 duration-500':
+              time?.minutes < 20,
+            'transform-gpu animate-pulse text-red-500 duration-100':
+              time?.minutes < 10,
+          })}
+        >
+          {formatTime(time)}
+        </span>
+      </p>
+      <ToastContainer />
+    </>
   )
 }
 
