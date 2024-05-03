@@ -1,37 +1,18 @@
 import { BiodataType } from '@/libs/types/biodata-type'
-import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
 
-export function ProfilePribadi() {
-  const [dataBiodata, setDataBiodata] = useState<BiodataType>()
-  const {
-    data: biodataData,
-    isLoading: biodataIsLoading,
-    isFetching: biodataIsFetching,
-  } = useGetBiodataQuery()
-  const disabled = biodataIsFetching || biodataIsLoading
-
-  useEffect(() => {
-    if (biodataData?.data) {
-      setDataBiodata(biodataData?.data)
-    }
-  }, [biodataData?.data])
-
+export function ProfilePribadi({
+  dataBiodata,
+  disabled,
+}: {
+  dataBiodata: BiodataType
+  disabled: boolean
+}) {
   return (
-    <div className="col-span-8 phones:col-span-12">
+    <div className="col-span-6 flex flex-col gap-24 phones:col-span-12">
+      <p className="text-[2rem] font-medium">Profile Pribadi</p>
       {/* --- Card --- */}
-      <div className="flex items-center gap-x-16 rounded-2xl bg-white p-32 ">
-        {disabled ? (
-          <div className="h-[18rem] w-[18rem] animate-pulse rounded-full bg-slate-200 duration-100" />
-        ) : (
-          <img
-            src="/img/logo.png"
-            alt="logo"
-            className="block w-[18rem] phones:hidden"
-          />
-        )}
-
+      <div className="flex items-center gap-x-16 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md">
         {disabled ? (
           <div className="flex flex-1 flex-col gap-y-8">
             <div className="h-[2rem] w-full animate-pulse rounded-full bg-slate-200 duration-100" />

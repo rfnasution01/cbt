@@ -12,13 +12,16 @@ import { biodataSchema } from '@/libs/schema/biodataSchema'
 import { FormLabelInput } from '@/components/molecules/input'
 import { FormListJenisKelamin } from '@/components/molecules/form/formListJenisKelamin'
 import { FormListAgama } from '@/components/molecules/form/formListAgama'
+import { BiodataType } from '@/libs/types/biodata-type'
 
 export default function UpdateProfile({
   nama,
   nisn,
+  dataBiodata,
 }: {
   nama: string
   nisn: string
+  dataBiodata?: BiodataType
 }) {
   const navigate = useNavigate()
   const [
@@ -91,6 +94,13 @@ export default function UpdateProfile({
     if (nama && nisn) {
       form.setValue('nisn', nisn)
       form.setValue('nama', nama)
+      if (dataBiodata) {
+        form.setValue('email', dataBiodata?.pribadi?.email)
+        form.setValue('tanggal_lahir', dataBiodata?.pribadi?.tanggal_lahir)
+        form.setValue('jk', dataBiodata?.pribadi?.jk)
+        form.setValue('agama', dataBiodata?.pribadi?.agama)
+        form.setValue('wa', dataBiodata?.pribadi?.wa)
+      }
     }
   }, [nama, nisn])
 
@@ -175,19 +185,10 @@ export default function UpdateProfile({
             />
           </div>
 
-          <div className="flex items-center gap-32">
-            <button
-              type="button"
-              onClick={() => {
-                navigate('/')
-              }}
-              className="flex-1 rounded-2xl border border-primary py-12 text-primary hover:border-transparent hover:bg-rose-700 hover:text-white"
-            >
-              Batal
-            </button>
+          <div className="flex items-center justify-end gap-32">
             <button
               type="submit"
-              className="flex-1 rounded-2xl border border-transparent bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed"
+              className="w-3/12  rounded-2xl border border-transparent bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed"
             >
               Update
             </button>

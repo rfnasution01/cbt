@@ -10,9 +10,9 @@ export function ProfileNavigation({
 }) {
   return (
     <div className="flex items-center justify-between">
-      <h1 className="block text-[3rem] font-bold phones:hidden">Profile</h1>
+      <h1 className="block text-[3rem] font-bold phones:hidden">Data Siswa</h1>
       <div className="flex items-center gap-x-16">
-        {['Pribadi', 'Sekolah'].map((item, idx) => (
+        {['Profile', 'Update'].map((item, idx) => (
           <div
             className={clsx(
               'border-b p-16 text-[1.8rem] hover:cursor-pointer',

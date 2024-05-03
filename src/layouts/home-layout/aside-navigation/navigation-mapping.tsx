@@ -21,7 +21,13 @@ export function NavigationMapping({ disabled }: { disabled: boolean }) {
     <div className="flex flex-col gap-y-12">
       {DataNavigation.map((item, idx) => (
         <Link
-          to={disabled ? '' : convertToSlug(item?.title)}
+          to={
+            disabled
+              ? ''
+              : convertToSlug(item?.title) === 'dashboard'
+                ? '/'
+                : `/${convertToSlug(item?.title)}`
+          }
           className={clsx(
             'flex items-center gap-x-12 border-l-4 p-12',
             {

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export function InfoProfile({
   disabled,
   nama,
@@ -6,7 +8,10 @@ export function InfoProfile({
   nama: string
 }) {
   return (
-    <div className="flex items-center gap-x-8">
+    <Link
+      to={'/profile'}
+      className="flex items-center gap-x-8 hover:cursor-pointer"
+    >
       {disabled ? (
         <div className="h-[7rem] w-[7rem] animate-pulse rounded-full bg-slate-200 font-roboto text-[3rem] duration-100" />
       ) : (
@@ -18,6 +23,6 @@ export function InfoProfile({
       ) : (
         <p className="font-roboto text-[2.4rem]">{nama ?? 'John'}</p>
       )}
-    </div>
+    </Link>
   )
 }
