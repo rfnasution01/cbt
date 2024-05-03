@@ -7,6 +7,7 @@ import {
   NotFoundPage,
   ProfilePage,
   RootLayout,
+  UjianPage,
   UpdateProfilePage,
 } from './loadables'
 import Cookies from 'js-cookie'
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
             element: <ProfilePage />,
           },
           { path: 'ganti-password', element: <ChangePasswordPage /> },
+          { path: 'ujian', element: <UjianPage /> },
         ],
       },
       {
