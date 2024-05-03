@@ -24,6 +24,8 @@ import { useEffect, useState } from 'react'
 
 export default function LoginForm() {
   const [isShow, setIsShow] = useState<boolean>(false)
+  const [isUpdate, setIsUpdate] = useState<boolean>(false)
+  const [isChange, setIsChange] = useState<boolean>(false)
   const [msg, setMsg] = useState<string>('')
   const navigate = useNavigate()
   // --- Post API ---
@@ -50,6 +52,10 @@ export default function LoginForm() {
       const res = await createLogin({ data: values })
       if ('data' in res) {
         const token = res?.data?.data?.token
+        const updateProfile = res?.data?.data?.update_profil
+        const changePassword = res?.data?.data?.change_password
+        setIsUpdate(updateProfile)
+        setIsChange(changePassword)
         Cookies.set('token', token)
       } else {
         console.error('Error occurred:', res.error)
@@ -63,7 +69,9 @@ export default function LoginForm() {
     if (loginIsSuccess) {
       setMsg('Login Berhasil!')
       setTimeout(() => {
-        navigate('/update-profile')
+        navigate(
+          isUpdate ? '/update-profile' : isChange ? '/ganti-password' : '/',
+        )
       }, 3000)
     }
   }, [loginIsSuccess])

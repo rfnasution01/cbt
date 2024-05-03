@@ -47,7 +47,7 @@ export function HasilUjianMapping({
               </p>
             </div>
             {/* --- Content --- */}
-            <div className="flex flex-col gap-y-16 px-32 py-16">
+            <div className="flex flex-col gap-y-16 px-32 pb-32 pt-16">
               {/* --- Tag --- */}
               <div className="flex">
                 <p
