@@ -1,5 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
+  ChangePasswordPage,
   HomeLayout,
   LoginLayout,
   LoginPage,
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
             path: 'profile',
             element: <ProfilePage />,
           },
+          { path: 'ganti-password', element: <ChangePasswordPage /> },
         ],
       },
       {
