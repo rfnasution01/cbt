@@ -1,5 +1,13 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { CBTLayout, LoginLayout, NotFoundPage, RootLayout } from './loadables'
+import { createBrowserRouter, redirect } from 'react-router-dom'
+import {
+  HomeLayout,
+  LoginLayout,
+  LoginPage,
+  NotFoundPage,
+  RootLayout,
+  UpdateProfilePage,
+} from './loadables'
+import Cookies from 'js-cookie'
 
 export const router = createBrowserRouter([
   {
@@ -8,11 +16,48 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <CBTLayout />,
+        element: <HomeLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
+      },
+      {
+        path: 'update-profile',
+        element: <UpdateProfilePage />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
       },
       {
         path: 'login',
         element: <LoginLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (jwtPayload) {
+            return redirect('/')
+          }
+
+          return null
+        },
+        children: [
+          {
+            path: '',
+            element: <LoginPage />,
+          },
+        ],
       },
     ],
   },

@@ -44,24 +44,32 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             placeholder:text-muted-foreground
             disabled:bg-form-disabled
             focus:shadow-primary-shade-1
-            h-48
+            h-[4.8rem]
             flex-grow
             rounded-lg
             border-2
+            border-gray-300
             px-12
-            py-8
+            py-12
+            text-black 
             transition-all
             duration-300
             file:border-0
             file:bg-transparent
             file:text-[2rem]
             file:font-medium
-          disabled:cursor-not-allowed
-            disabled:opacity-50`,
+            focus:border-indigo-500
+            focus:outline-none
+
+            focus:ring-indigo-500
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+          phones:h-[6.2rem]
+            phones:py-16`,
             className,
             error && 'border-destructive',
-            prefix && 'pl-48', // add left padding if prefix is present
-            suffix && 'pr-48', // add right padding if suffix is present
+            prefix && 'pl-48 phones:pl-64', // add left padding if prefix is present
+            suffix && 'pr-48 phones:pl-64', // add right padding if suffix is present
           )}
           onChange={onValueChange}
           ref={ref}

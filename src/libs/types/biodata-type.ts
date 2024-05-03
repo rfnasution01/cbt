@@ -22,3 +22,13 @@ export type BiodataSekolahType = {
   npsn: string
   nama: string
 }
+
+export type PostBiodataParams = {
+  nisn: string
+  nama: string
+  jk: string
+  agama: string
+  tanggal_lahir: string
+  email: string
+  wa: string
+}

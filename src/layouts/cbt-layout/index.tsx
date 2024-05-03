@@ -15,11 +15,9 @@ export default function CBTLayout() {
     }
   }, [dataBiodata?.data])
 
-  console.log(biodata)
-
   return (
     <ScrollbarComponent classes="flex flex-col gap-y-32">
-      <CBTHeader />
+      <CBTHeader biodata={biodata?.pribadi?.nama} />
       <div className="flex-1 ">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum earum
         sint repudiandae modi ipsam, doloribus eveniet neque voluptatem ut
