@@ -67,6 +67,8 @@ export default function CBTLayout() {
     data,
     isLoading: ujianLoading,
     isFetching: ujianFetching,
+    isError: ujianIsError,
+    error: ujianError,
   } = useGetSoalUjianQuery(
     {
       id_ujian: kodeUjianParams,
@@ -84,6 +86,22 @@ export default function CBTLayout() {
       setDataSoal(data?.data)
     }
   }, [data?.data])
+
+  useEffect(() => {
+    if (ujianIsError) {
+      const errorMsg = ujianError as {
+        data?: {
+          message?: string
+        }
+        status?: number
+      }
+
+      if (errorMsg?.status === 401) {
+        Cookies.remove('token')
+        navigate('/login')
+      }
+    }
+  }, [ujianError, ujianIsError])
 
   // --- Create Soal Ujian ---
   const [
@@ -132,6 +150,7 @@ export default function CBTLayout() {
         data?: {
           message?: string
         }
+        status?: number
       }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
@@ -145,6 +164,10 @@ export default function CBTLayout() {
         theme: 'light',
         transition: Bounce,
       })
+      if (errorMsg?.status === 401) {
+        Cookies.remove('token')
+        navigate('/login')
+      }
     }
   }, [submitIsError, submitError])
 

@@ -9,7 +9,7 @@ export function NavigationMapping({ disabled }: { disabled: boolean }) {
 
   const isActivePage = (item: string) => {
     if (
-      firstPathname?.includes(convertToSlug(item).toLowerCase()) ||
+      firstPathname === convertToSlug(item).toLowerCase() ||
       (firstPathname === undefined && item.toLowerCase() === 'dashboard')
     ) {
       return true

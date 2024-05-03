@@ -8,6 +8,7 @@ export const RootLayout = loadable(() => import('@/layouts/root-layout'))
 export const CBTLayout = loadable(() => import('@/layouts/cbt-layout'))
 export const LoginLayout = loadable(() => import('@/layouts/login-layout'))
 export const HomeLayout = loadable(() => import('@/layouts/home-layout'))
+export const ResultLayout = loadable(() => import('@/layouts/result-layout'))
 
 // ------------------
 // ----- Pages -----
@@ -25,3 +26,4 @@ export const ChangePasswordPage = loadable(
   () => import('@/pages/change-password'),
 )
 export const UjianPage = loadable(() => import('@/pages/ujian'))
+export const HasilUjianPage = loadable(() => import('@/pages/hasil-ujian'))

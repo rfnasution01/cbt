@@ -2,11 +2,13 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   CBTLayout,
   ChangePasswordPage,
+  HasilUjianPage,
   HomeLayout,
   LoginLayout,
   LoginPage,
   NotFoundPage,
   ProfilePage,
+  ResultLayout,
   RootLayout,
   UjianPage,
   UpdateProfilePage,
@@ -37,11 +39,25 @@ export const router = createBrowserRouter([
           },
           { path: 'ganti-password', element: <ChangePasswordPage /> },
           { path: 'ujian', element: <UjianPage /> },
+          { path: 'hasil-ujian', element: <HasilUjianPage /> },
         ],
       },
       {
         path: 'cbt',
         element: <CBTLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
+      },
+      {
+        path: 'pembahasan',
+        element: <ResultLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
 

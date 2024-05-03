@@ -9,7 +9,7 @@ export function CBTHeader({ biodata }: { biodata?: string }) {
         <LogoTitle teks1="Smart" teks2="Learning" />
       </div>
       <div className="flex gap-x-32">
-        <span className="flex items-center justify-center">
+        <span className="flex items-center justify-center phones:px-32">
           <Time />
         </span>
         <div className="flex items-center gap-x-8 bg-primary px-32 text-center text-[2rem] text-white hover:cursor-pointer phones:hidden">
