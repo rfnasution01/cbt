@@ -4,6 +4,7 @@ import {
   LoginLayout,
   LoginPage,
   NotFoundPage,
+  ProfilePage,
   RootLayout,
   UpdateProfilePage,
 } from './loadables'
@@ -26,6 +27,12 @@ export const router = createBrowserRouter([
 
           return null
         },
+        children: [
+          {
+            path: 'profile',
+            element: <ProfilePage />,
+          },
+        ],
       },
       {
         path: 'update-profile',

@@ -19,3 +19,5 @@ export const LoginPage = loadable(() => import('@/pages/login'))
 export const UpdateProfilePage = loadable(
   () => import('@/pages/update-profile'),
 )
+
+export const ProfilePage = loadable(() => import('@/pages/profile'))

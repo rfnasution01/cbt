@@ -5,12 +5,12 @@ import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 
 export function NavigationMapping({ disabled }: { disabled: boolean }) {
-  const { secondPathname } = usePathname()
+  const { firstPathname } = usePathname()
 
   const isActivePage = (item: string) => {
     if (
-      secondPathname?.includes(convertToSlug(item).toLowerCase()) ||
-      (secondPathname === undefined && item.toLowerCase() === 'dashboard')
+      firstPathname?.includes(convertToSlug(item).toLowerCase()) ||
+      (firstPathname === undefined && item.toLowerCase() === 'dashboard')
     ) {
       return true
     }

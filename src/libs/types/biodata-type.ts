@@ -21,6 +21,7 @@ export type BiodataSekolahType = {
   id: string
   npsn: string
   nama: string
+  wilayah: string
 }
 
 export type PostBiodataParams = {
