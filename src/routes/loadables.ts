@@ -27,3 +27,4 @@ export const ChangePasswordPage = loadable(
 )
 export const UjianPage = loadable(() => import('@/pages/ujian'))
 export const HasilUjianPage = loadable(() => import('@/pages/hasil-ujian'))
+export const BeritaPage = loadable(() => import('@/pages/berita'))

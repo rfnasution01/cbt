@@ -1,5 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
+  BeritaPage,
   CBTLayout,
   ChangePasswordPage,
   HasilUjianPage,
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
           { path: 'ganti-password', element: <ChangePasswordPage /> },
           { path: 'ujian', element: <UjianPage /> },
           { path: 'hasil-ujian', element: <HasilUjianPage /> },
+          { path: 'berita', element: <BeritaPage /> },
         ],
       },
       {
