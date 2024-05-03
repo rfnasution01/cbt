@@ -97,7 +97,7 @@ export default function ResultLayout() {
 
   return (
     <ScrollbarComponent classes="flex flex-col">
-      <CBTHeader biodata={biodata?.pribadi?.nama} />
+      <CBTHeader biodata={biodata?.pribadi?.nama} idUjian={kodeUjianParams} />
       <ResultHome
         dataStatistik={dataStatistik}
         idUjian={kodeUjianParams}
