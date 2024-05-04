@@ -121,6 +121,7 @@ export function HasilUjianMapping({
         noPadding
         customComponent={
           <ModalError
+            msg="Hasil ujian"
             setIsShow={setIsShow}
             isSudahDikerjakan={
               data?.find((item) => item?.id_ujian === idUjian)?.skor === 1

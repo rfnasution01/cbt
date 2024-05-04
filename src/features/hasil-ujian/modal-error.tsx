@@ -7,18 +7,18 @@ export function ModalError({
   isSudahDimulai,
   isSudahBerakhir,
   setIsShow,
+  msg,
 }: {
   isSudahDikerjakan?: boolean
   isSudahBerakhir?: boolean
   isSudahDimulai?: boolean
   setIsShow: Dispatch<SetStateAction<boolean>>
+  msg: string
 }) {
   return (
     <div className="mb-32 flex flex-col gap-y-32 text-black">
       <div className="flex flex-col gap-y-12">
-        <p className="text-[2rem]">
-          Hasil ujian tidak bisa ditampilkan karena:
-        </p>
+        <p className="text-[2rem]">{msg} tidak bisa ditampilkan karena:</p>
         {/* --- Sudah Dimulai --- */}
         <div className="flex items-center gap-x-8 text-[1.8rem]">
           <div
