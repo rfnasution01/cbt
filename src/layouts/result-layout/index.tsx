@@ -14,17 +14,12 @@ import {
 
 export default function ResultLayout() {
   const navigate = useNavigate()
-  const token = null
   const searchParams = new URLSearchParams(location.search)
   const kodeUjianParams = searchParams.get('idUjian')
   const noSoalParams = searchParams.get('nomor') ?? 1
   const [noSoal, setNoSoal] = useState<number>(Number(noSoalParams))
   // --- Biodata ---
-  const {
-    data: dataBiodata,
-    isError,
-    error,
-  } = useGetBiodataQuery(undefined, { skip: !token })
+  const { data: dataBiodata, isError, error } = useGetBiodataQuery()
   const [biodata, setBiodata] = useState<BiodataType>()
 
   useEffect(() => {

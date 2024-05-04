@@ -43,6 +43,17 @@ export function UjianDetail({
     navigate(`/cbt?idUjian=${item?.id_ujian}`)
   }
 
+  const tanggalMulai = ujianNow?.tanggal_mulai
+  const tanggalAkhir = ujianNow?.tanggal_akhir
+
+  const sekarang = new Date()
+  const tglSekarang = sekarang.getTime()
+
+  const disabled = !(
+    tglSekarang >= new Date(tanggalMulai).getTime() &&
+    tglSekarang <= new Date(tanggalAkhir).getTime()
+  )
+
   return (
     <div className="flex flex-col gap-32">
       <UjianDetailInformation ujianNow={ujianNow} />
@@ -61,7 +72,7 @@ export function UjianDetail({
           </button>
           <button
             type="button"
-            disabled={ujianNow?.status === 1}
+            disabled={ujianNow?.status === 1 || disabled}
             onClick={() => handleStartExam(ujianNow)}
             className="flex flex-1 items-center justify-center gap-x-8 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed disabled:hover:bg-primary-shade-500 phones:w-full"
           >

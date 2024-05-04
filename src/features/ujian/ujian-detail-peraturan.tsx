@@ -2,7 +2,7 @@ export function UjianDetailPeraturan() {
   return (
     <div className="flex flex-col gap-y-32 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md">
       <p className="font-roboto text-[2.4rem]">Peraturan Ujian</p>
-      <ol className="flex list-decimal flex-col gap-y-12">
+      <ol className="ml-16 flex list-decimal flex-col gap-y-12">
         {[
           'Browser yang bisa digunakan hanya Google Chrome / Mozilla Firefox versi terbaru.',
           'Pastikan koneksi internet stabil.',
