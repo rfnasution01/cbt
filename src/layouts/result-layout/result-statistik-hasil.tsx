@@ -1,8 +1,25 @@
-import { UjianType } from '@/libs/types/cbt-type'
+import { RankingType, UjianType } from '@/libs/types/cbt-type'
+import { useGetRankingUjianQuery } from '@/store/slices/cbtAPI'
 import clsx from 'clsx'
 import { Award, Trophy } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
-export function StatistikHasil({ item }: { item: UjianType }) {
+export function StatistikHasil({
+  item,
+  idUjian,
+}: {
+  item: UjianType
+  idUjian: string
+}) {
+  const { data } = useGetRankingUjianQuery({ id_ujian: idUjian })
+  const [ranking, setRanking] = useState<RankingType>()
+
+  useEffect(() => {
+    if (data?.data) {
+      setRanking(data?.data)
+    }
+  }, [data?.data])
+
   return (
     <div className="grid grid-cols-12 gap-32">
       {/* --- Hasil --- */}
@@ -17,19 +34,19 @@ export function StatistikHasil({ item }: { item: UjianType }) {
               },
             )}
           >
-            {item?.skor}
+            {item?.status === 1 ? item?.skor : 0}
           </div>
         </div>
         <div className="text-center">
           {item?.status_lulus ? (
             <div className="flex flex-col gap-y-4">
               <p>Selamat!</p>
-              <p>Skor anda melewati passsing grade</p>
+              <p>Anda lulus</p>
             </div>
           ) : (
             <div className="flex flex-col gap-y-4">
               <p>Sayang sekali!</p>
-              <p>Skor anda dibawah passsing grade</p>
+              <p>Anda belum lulus</p>
             </div>
           )}
         </div>
@@ -57,8 +74,9 @@ export function StatistikHasil({ item }: { item: UjianType }) {
         <p className="font-medium">
           Peringkat{' '}
           <span className="font-bold text-primary">
-            {item?.peringkat ?? '-'}
-          </span>
+            {ranking?.ranking_siswa}
+          </span>{' '}
+          / {ranking?.ranking_semua?.length}
         </p>
       </div>
 

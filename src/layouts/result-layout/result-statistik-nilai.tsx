@@ -1,4 +1,4 @@
-import { StatistikType, UjianType } from '@/libs/types/cbt-type'
+import { PembahasanType, StatistikType, UjianType } from '@/libs/types/cbt-type'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StatistikSoalPieChart } from './result-statistik-soal'
@@ -14,11 +14,15 @@ export function ResultStatistikNilai({
   idUjian,
   setType,
   setKategori,
+  dataPembahasan,
+  setNoSoal,
 }: {
   data: StatistikType[]
   idUjian: string
   setType: Dispatch<SetStateAction<string>>
   setKategori: Dispatch<SetStateAction<string>>
+  setNoSoal: Dispatch<SetStateAction<number>>
+  dataPembahasan: PembahasanType[]
 }) {
   const navigate = useNavigate()
   const {
@@ -54,10 +58,28 @@ export function ResultStatistikNilai({
 
   const item = ujian?.find((list) => list?.id_ujian === idUjian)
 
+  // Fungsi untuk mengambil item dengan urutan terkecil dalam setiap grup kategori
+  const itemUrutanTerkecilPerKategori = dataPembahasan.reduce((acc, curr) => {
+    // Mengecek apakah kategori sudah ada di akumulator
+    if (!acc[curr.id_kategori]) {
+      acc[curr.id_kategori] = curr
+    } else {
+      // Jika sudah ada, bandingkan urutan dan perbarui jika lebih kecil
+      if (curr.urutan < acc[curr.id_kategori].urutan) {
+        acc[curr.id_kategori] = curr
+      }
+    }
+    return acc
+  }, {})
+
   return (
     <div className="flex flex-col gap-y-24">
       <p className="text-[2rem] font-bold">Hasil</p>
-      {disabled ? <Loading /> : <StatistikHasil item={item} />}
+      {disabled ? (
+        <Loading />
+      ) : (
+        <StatistikHasil item={item} idUjian={idUjian} />
+      )}
 
       {/* --- Nilai --- */}
       <p className="text-[2rem] font-bold">Nilai</p>
@@ -79,11 +101,30 @@ export function ResultStatistikNilai({
                 type="button"
                 className="rounded-2xl bg-primary px-24 py-12 text-white hover:bg-primary-shade-500"
                 onClick={() => {
-                  setType('pembahasan')
-                  setKategori(item?.id_kategori)
-                  navigate(
-                    `/pembahasan?soal=${idUjian}&kategori=${item?.id_kategori}`,
+                  // Filter item berdasarkan id_kategori yang sama dengan targetKategori
+                  const filteredItems = Object.values(
+                    itemUrutanTerkecilPerKategori,
+                  ).filter(
+                    (list: PembahasanType) =>
+                      list?.id_kategori === item?.id_kategori,
                   )
+
+                  // Jika tidak ada item yang cocok, kembalikan null atau tangani kasus khusus sesuai kebutuhan
+                  if (filteredItems.length !== 0) {
+                    // Ambil semua nilai urutan dari item yang terfilter
+                    const urutanArray = filteredItems.map(
+                      (item: PembahasanType) => item?.urutan,
+                    )
+
+                    // Temukan nilai terkecil dari urutanArray
+                    const smallestUrutan = Math.min(...urutanArray)
+                    setType('pembahasan')
+                    setKategori(item?.id_kategori)
+                    setNoSoal(smallestUrutan)
+                    navigate(
+                      `/pembahasan?idUjian=${idUjian}&nomor=${smallestUrutan}&kategori=${item?.id_kategori}`,
+                    )
+                  }
                 }}
               >
                 Pembahasan

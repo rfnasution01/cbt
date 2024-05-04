@@ -1,5 +1,6 @@
 import {
   PembahasanType,
+  RankingType,
   SaveUjianParams,
   SoalUjianParams,
   SoalUjianType,
@@ -31,7 +32,7 @@ export const cbtEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['ujian', 'soal', 'hasil'],
+      invalidatesTags: ['ujian', 'soal', 'hasil', 'ranking'],
     }),
     getResetUjian: builder.query<void, SoalUjianParams>({
       query: ({ id_ujian }) => ({
@@ -59,6 +60,15 @@ export const cbtEndpoints = api.injectEndpoints({
       }),
       providesTags: ['hasil'],
     }),
+    getRankingUjian: builder.query<Res<RankingType>, SoalUjianParams>({
+      query: ({ id_ujian }) => ({
+        url: 'ujian/ranking',
+        params: {
+          id_ujian,
+        },
+      }),
+      providesTags: ['ranking'],
+    }),
   }),
 })
 
@@ -69,4 +79,5 @@ export const {
   useCreateSaveJawabanMutation,
   useGetPembahasanUjianQuery,
   useGetStatistikUjianQuery,
+  useGetRankingUjianQuery,
 } = cbtEndpoints

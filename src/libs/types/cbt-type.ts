@@ -82,3 +82,17 @@ export type PembahasanType = {
   jawaban: string[] | null | string
   status: string | null
 }
+
+export type RankingType = {
+  ranking_siswa: number
+  ranking_semua: RankingSiswa[]
+}
+
+export type RankingSiswa = {
+  ranking: number
+  nisn: string
+  nama: string
+  jk: string
+  skor: string
+  sekolah: string
+}

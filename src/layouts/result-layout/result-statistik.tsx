@@ -1,5 +1,5 @@
 import Loading from '@/components/atoms/Loading'
-import { StatistikType } from '@/libs/types/cbt-type'
+import { PembahasanType, StatistikType } from '@/libs/types/cbt-type'
 import { Dispatch, SetStateAction } from 'react'
 import { ResultStatistikNilai } from './result-statistik-nilai'
 
@@ -9,11 +9,15 @@ export function ResultStatistik({
   setKategori,
   idUjian,
   isLoading,
+  dataPembahasan,
+  setNoSoal,
 }: {
   data: StatistikType[]
+  dataPembahasan: PembahasanType[]
   idUjian: string
   setType: Dispatch<SetStateAction<string>>
   setKategori: Dispatch<SetStateAction<string>>
+  setNoSoal: Dispatch<SetStateAction<number>>
   isLoading: boolean
 }) {
   return (
@@ -26,6 +30,8 @@ export function ResultStatistik({
           setKategori={setKategori}
           setType={setType}
           idUjian={idUjian}
+          dataPembahasan={dataPembahasan}
+          setNoSoal={setNoSoal}
         />
       )}
     </div>

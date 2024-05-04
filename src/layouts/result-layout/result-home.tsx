@@ -39,6 +39,8 @@ export function ResultHome({
           setType={setType}
           idUjian={idUjian}
           isLoading={isLoading}
+          dataPembahasan={dataPembahasan}
+          setNoSoal={setNoSoal}
         />
       ) : (
         <ResultPembahasan

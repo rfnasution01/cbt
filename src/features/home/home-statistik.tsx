@@ -9,6 +9,7 @@ export function HomeStatistik({ data }: { data: UjianType[] }) {
           <p className="text-[2rem] font-medium">{item?.nama_ujian}</p>
           <StatistikHasil
             item={data?.find((list) => list?.id_ujian === item?.id_ujian)}
+            idUjian={item?.id_ujian}
           />
         </div>
       ))}
