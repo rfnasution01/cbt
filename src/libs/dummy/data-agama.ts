@@ -4,5 +4,5 @@ export const DataAgama = [
   { value: 'Khatolik', label: 'Khatolik' },
   { value: 'Buddha', label: 'Budha' },
   { value: 'Hindu', label: 'Hindu' },
-  { value: 'Konghucu', label: 'Konghucu' },
+  { value: 'Konghuchu', label: 'Konghuchu' },
 ]

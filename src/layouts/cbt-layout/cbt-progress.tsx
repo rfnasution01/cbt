@@ -2,7 +2,13 @@ import CountdownTimer from '@/components/atoms/TimeCountDown'
 import { hitungSelisihMenit } from '@/libs/helpers/format-time'
 import { Timer } from 'lucide-react'
 
-export function CBTProgress({ totalSoal = 10 }: { totalSoal?: number }) {
+export function CBTProgress({
+  totalSoal = 10,
+  idUjian,
+}: {
+  totalSoal?: number
+  idUjian: string
+}) {
   const smartlearningData = JSON.parse(
     localStorage.getItem('smartlearning') || '{}',
   )
@@ -11,7 +17,7 @@ export function CBTProgress({ totalSoal = 10 }: { totalSoal?: number }) {
 
   const mulaiUjian = JSON.parse(localStorage.getItem('mulaiujian') || '{}')
   const startTime = new Date(mulaiUjian.startTime)
-  const durasi = mulaiUjian.duration
+  const durasi = mulaiUjian?.duration
   const now = new Date()
   const selisih = hitungSelisihMenit(startTime, now)
   const sisaWaktuSoal = durasi - selisih
@@ -29,7 +35,7 @@ export function CBTProgress({ totalSoal = 10 }: { totalSoal?: number }) {
             <Timer />
           </span>
           <div className="flex items-center">
-            <CountdownTimer waktuUjian={sisaWaktuSoal} />
+            <CountdownTimer waktuUjian={sisaWaktuSoal} idUjian={idUjian} />
           </div>
         </div>
       </div>

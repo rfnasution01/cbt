@@ -7,7 +7,13 @@ import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const CountdownTimer = ({ waktuUjian = 10 }: { waktuUjian?: number }) => {
+const CountdownTimer = ({
+  waktuUjian = 10,
+  idUjian,
+}: {
+  waktuUjian?: number
+  idUjian: string
+}) => {
   const [time, setTime] = useState({
     minutes: waktuUjian,
     seconds: 0,
@@ -70,8 +76,14 @@ const CountdownTimer = ({ waktuUjian = 10 }: { waktuUjian?: number }) => {
   const handleSelesai = () => {
     const data = konversiJaawaban(smartlearningData)
 
+    const dataDefault = {
+      id_ujian: idUjian,
+      jawaban: [],
+    }
+
+    const sendData = data?.id_ujian ? data : dataDefault
     try {
-      submitJawaban({ data: data })
+      submitJawaban({ data: sendData })
     } catch (error) {
       console.log(error)
     }

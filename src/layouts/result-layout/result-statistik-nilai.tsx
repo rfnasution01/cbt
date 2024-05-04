@@ -82,7 +82,7 @@ export function ResultStatistikNilai({
                   setType('pembahasan')
                   setKategori(item?.id_kategori)
                   navigate(
-                    `/result?soal=${idUjian}&kategori=${item?.id_kategori}`,
+                    `/pembahasan?soal=${idUjian}&kategori=${item?.id_kategori}`,
                   )
                 }}
               >

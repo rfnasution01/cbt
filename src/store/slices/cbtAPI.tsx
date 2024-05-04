@@ -23,6 +23,7 @@ export const cbtEndpoints = api.injectEndpoints({
           id_ujian,
         },
       }),
+      providesTags: ['soal'],
     }),
     createSaveJawaban: builder.mutation<void, { data: SaveUjianParams }>({
       query: ({ data }) => ({
@@ -30,7 +31,7 @@ export const cbtEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['ujian'],
+      invalidatesTags: ['ujian', 'soal', 'hasil'],
     }),
     getResetUjian: builder.query<void, SoalUjianParams>({
       query: ({ id_ujian }) => ({
@@ -47,6 +48,7 @@ export const cbtEndpoints = api.injectEndpoints({
           id_ujian,
         },
       }),
+      providesTags: ['hasil'],
     }),
     getPembahasanUjian: builder.query<Res<PembahasanType[]>, SoalUjianParams>({
       query: ({ id_ujian }) => ({
@@ -55,6 +57,7 @@ export const cbtEndpoints = api.injectEndpoints({
           id_ujian,
         },
       }),
+      providesTags: ['hasil'],
     }),
   }),
 })
