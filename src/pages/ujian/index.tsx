@@ -3,7 +3,7 @@ import { useState } from 'react'
 import ComingSoon from '../coming-soon'
 
 export default function UjianPage() {
-  const [type, setType] = useState<string>('percobaan')
+  const [type, setType] = useState<string>('ujian')
 
   return (
     <div className="flex flex-col gap-y-32">

@@ -14,7 +14,7 @@ export function UjianHeader({
         Computer Based Test
       </h1>
       <div className="flex items-center gap-x-16">
-        {['Percobaan', 'Ujian'].map((item, idx) => (
+        {['Ujian', 'Percobaan'].map((item, idx) => (
           <div
             className={clsx(
               'border-b p-16 text-[1.8rem] hover:cursor-pointer',

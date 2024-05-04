@@ -47,6 +47,17 @@ export function UjianDetail({
     navigate(`/cbt?idUjian=${item?.id_ujian}`)
   }
 
+  const tanggalMulai = ujianNow?.tanggal_mulai
+  const tanggalAkhir = ujianNow?.tanggal_akhir
+
+  const sekarang = new Date()
+  const tglSekarang = sekarang.getTime()
+
+  const disabled = !(
+    tglSekarang >= new Date(tanggalMulai).getTime() &&
+    tglSekarang <= new Date(tanggalAkhir).getTime()
+  )
+
   return (
     <div className="flex flex-col gap-32">
       <UjianDetailInformation ujianNow={ujianNow} />
@@ -66,7 +77,7 @@ export function UjianDetail({
           <button
             type="button"
             onClick={() => {
-              if (ujianNow?.status === 0) {
+              if (ujianNow?.status === 0 && !disabled) {
                 handleStartExam(ujianNow)
               } else {
                 setIsShow(true)
@@ -102,13 +113,15 @@ export function UjianDetail({
                 ?.skor !== 1
             }
             isSudahDimulai={isSudahDimulai(
-              data?.find((item) => item?.id_ujian !== ujianNow?.id_ujian)
+              data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
                 ?.tanggal_mulai,
             )}
-            isSudahBerakhir={isSudahBerakhir(
-              data?.find((item) => item?.id_ujian !== ujianNow?.id_ujian)
-                ?.tanggal_akhir,
-            )}
+            isSudahBerakhir={
+              !isSudahBerakhir(
+                data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
+                  ?.tanggal_akhir,
+              )
+            }
           />
         }
       />
