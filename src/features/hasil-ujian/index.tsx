@@ -8,6 +8,7 @@ import { Scroll, Timer } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ModalError } from './modal-error'
+import { isSudahBerakhir, isSudahDimulai } from '@/libs/helpers/format-time'
 
 export function HasilUjianMapping({
   data,
@@ -19,22 +20,6 @@ export function HasilUjianMapping({
   const navigate = useNavigate()
   const [isShow, setIsShow] = useState<boolean>(false)
   const [idUjian, setIdUjian] = useState<string>()
-
-  function isSudahDimulai(tanggalMulai) {
-    const sekarang = new Date()
-    const tglMulai = new Date(tanggalMulai)
-
-    // Jika tanggal hari ini lebih besar atau sama dengan tanggal mulai
-    return sekarang >= tglMulai
-  }
-
-  function isSudahBerakhir(tanggalAkhir) {
-    const sekarang = new Date()
-    const tglAkhir = new Date(tanggalAkhir)
-
-    // Jika tanggal hari ini lebih besar dari tanggal akhir
-    return sekarang > tglAkhir
-  }
 
   return (
     <div className="grid grid-cols-12 gap-32">

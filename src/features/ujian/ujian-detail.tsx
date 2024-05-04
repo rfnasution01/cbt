@@ -1,9 +1,12 @@
 import { UjianType } from '@/libs/types/cbt-type'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { UjianDetailInformation } from './ujian-detail-information'
 import { UjianDetailPeraturan } from './ujian-detail-peraturan'
 import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { DialogHelpers } from '@/components/molecules/dialog'
+import { ModalError } from '../hasil-ujian/modal-error'
+import { isSudahBerakhir, isSudahDimulai } from '@/libs/helpers/format-time'
 
 export function UjianDetail({
   data,
@@ -16,6 +19,7 @@ export function UjianDetail({
 }) {
   const navigate = useNavigate()
   const ujianNow = data?.find((item) => item?.id_ujian === ujianName)
+  const [isShow, setIsShow] = useState<boolean>(false)
 
   const handleStartExam = (item) => {
     // Cek apakah mulaiUjian sudah ada di local storage
@@ -43,17 +47,6 @@ export function UjianDetail({
     navigate(`/cbt?idUjian=${item?.id_ujian}`)
   }
 
-  const tanggalMulai = ujianNow?.tanggal_mulai
-  const tanggalAkhir = ujianNow?.tanggal_akhir
-
-  const sekarang = new Date()
-  const tglSekarang = sekarang.getTime()
-
-  const disabled = !(
-    tglSekarang >= new Date(tanggalMulai).getTime() &&
-    tglSekarang <= new Date(tanggalAkhir).getTime()
-  )
-
   return (
     <div className="flex flex-col gap-32">
       <UjianDetailInformation ujianNow={ujianNow} />
@@ -72,8 +65,13 @@ export function UjianDetail({
           </button>
           <button
             type="button"
-            disabled={ujianNow?.status === 1 || disabled}
-            onClick={() => handleStartExam(ujianNow)}
+            onClick={() => {
+              if (ujianNow?.status === 0) {
+                handleStartExam(ujianNow)
+              } else {
+                setIsShow(true)
+              }
+            }}
             className="flex flex-1 items-center justify-center gap-x-8 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed disabled:hover:bg-primary-shade-500 phones:w-full"
           >
             <p>Mulai</p>
@@ -81,6 +79,39 @@ export function UjianDetail({
           </button>
         </div>
       </div>
+      <DialogHelpers
+        title={
+          <div className="flex h-[7.6rem] items-center bg-primary-shade-500 px-24 text-[3.2rem] text-secondary-shade-100">
+            <Link to="/" className="phones:hidden">
+              CBT
+              <span className="text-primary-shade-200">SmartLearning</span>
+            </Link>
+          </div>
+        }
+        open={isShow}
+        setOpen={setIsShow}
+        height="auto"
+        size="small"
+        noPadding
+        customComponent={
+          <ModalError
+            msg="Ujian"
+            setIsShow={setIsShow}
+            isSudahDikerjakan={
+              data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
+                ?.skor !== 1
+            }
+            isSudahDimulai={isSudahDimulai(
+              data?.find((item) => item?.id_ujian !== ujianNow?.id_ujian)
+                ?.tanggal_mulai,
+            )}
+            isSudahBerakhir={isSudahBerakhir(
+              data?.find((item) => item?.id_ujian !== ujianNow?.id_ujian)
+                ?.tanggal_akhir,
+            )}
+          />
+        }
+      />
     </div>
   )
 }
