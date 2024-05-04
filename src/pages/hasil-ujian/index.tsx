@@ -37,7 +37,10 @@ export default function HasilUjianPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-[3rem] font-bold">Hasil Ujian</h1>
       </div>
-      <HasilUjianMapping data={ujian} disabled={disabled} />
+      <HasilUjianMapping
+        data={ujian?.filter((item) => item?.status === 1)}
+        disabled={disabled}
+      />
     </div>
   )
 }

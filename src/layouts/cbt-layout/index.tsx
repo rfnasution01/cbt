@@ -21,7 +21,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export default function CBTLayout() {
   const navigate = useNavigate()
-  const token = null
   const searchParams = new URLSearchParams(location.search)
   const kodeUjianParams = searchParams.get('idUjian')
   const [dataSoal, setDataSoal] = useState<SoalUjianType[]>([])
@@ -34,11 +33,7 @@ export default function CBTLayout() {
   const [ukuranSoal, setUkuranSoal] = useState<string>('sm')
 
   // --- Biodata ---
-  const {
-    data: dataBiodata,
-    isError,
-    error,
-  } = useGetBiodataQuery(undefined, { skip: !token })
+  const { data: dataBiodata, isError, error } = useGetBiodataQuery()
   const [biodata, setBiodata] = useState<BiodataType>()
 
   useEffect(() => {
