@@ -118,10 +118,10 @@ export function HasilUjianMapping({
               data?.find((item) => item?.id_ujian === idUjian)?.tanggal_akhir,
             )}
             isDikerjakan={
-              data?.find((item) => item?.id_ujian === idUjian)?.skor === 1
+              data?.find((item) => item?.id_ujian === idUjian)?.status === 1
             }
             isBelumDikerjakan={
-              data?.find((item) => item?.id_ujian === idUjian)?.skor === 0
+              data?.find((item) => item?.id_ujian === idUjian)?.status === 0
             }
           />
         }

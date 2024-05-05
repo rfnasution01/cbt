@@ -122,11 +122,11 @@ export function UjianDetail({
             )}
             isDikerjakan={
               data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
-                ?.skor === 1
+                ?.status === 1
             }
             isBelumDikerjakan={
               data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
-                ?.skor === 0
+                ?.status === 0
             }
           />
         }
