@@ -3,6 +3,7 @@ import {
   BeritaDetailType,
   BeritaParams,
   BeritaType,
+  ListBeritaType,
 } from '@/libs/types/berita-type'
 import { Res, api } from '../api'
 
@@ -29,6 +30,11 @@ export const beritaEndpoints = api.injectEndpoints({
         },
       }),
     }),
+    getListBeritaKategori: builder.query<Res<ListBeritaType[]>, void>({
+      query: () => ({
+        url: 'kategori/berita',
+      }),
+    }),
     getBeritaDetail: builder.query<Res<BeritaDetailType[]>, BeritaDetailParams>(
       {
         query: ({ seo }) => ({
@@ -46,4 +52,5 @@ export const {
   useGetBeritaQuery,
   useGetBeritaKategoriQuery,
   useGetBeritaDetailQuery,
+  useGetListBeritaKategoriQuery,
 } = beritaEndpoints

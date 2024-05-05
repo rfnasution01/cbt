@@ -8,7 +8,7 @@ import { Scroll, Timer } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ModalError } from './modal-error'
-import { isSudahBerakhir, isSudahDimulai } from '@/libs/helpers/format-time'
+import { isSudahBerakhir, isTanggalBerlalu } from '@/libs/helpers/format-time'
 
 export function HasilUjianMapping({
   data,
@@ -106,17 +106,23 @@ export function HasilUjianMapping({
         noPadding
         customComponent={
           <ModalError
-            msg="Hasil ujian"
-            setIsShow={setIsShow}
-            isSudahDikerjakan={
-              data?.find((item) => item?.id_ujian === idUjian)?.skor === 1
+            tgl_dimulai={
+              data?.find((item) => item?.id_ujian === idUjian)?.tanggal_mulai
             }
-            isSudahDimulai={isSudahDimulai(
-              data?.find((item) => item?.id_ujian === idUjian)?.tanggal_mulai,
-            )}
+            isBelumDimulai={
+              !isTanggalBerlalu(
+                data?.find((item) => item?.id_ujian === idUjian)?.tanggal_mulai,
+              )
+            }
             isSudahBerakhir={isSudahBerakhir(
               data?.find((item) => item?.id_ujian === idUjian)?.tanggal_akhir,
             )}
+            isDikerjakan={
+              data?.find((item) => item?.id_ujian === idUjian)?.skor === 1
+            }
+            isBelumDikerjakan={
+              data?.find((item) => item?.id_ujian === idUjian)?.skor === 0
+            }
           />
         }
       />

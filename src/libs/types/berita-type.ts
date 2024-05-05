@@ -10,6 +10,11 @@ export type BeritaType = {
   seo: string
 }
 
+export type ListBeritaType = {
+  kategori: string
+  seo_kategori: string
+}
+
 type PhotoType = {
   keterangan: string
   gambar: string

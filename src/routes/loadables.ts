@@ -9,7 +9,13 @@ export const CBTLayout = loadable(() => import('@/layouts/cbt-layout'))
 export const LoginLayout = loadable(() => import('@/layouts/login-layout'))
 export const HomeLayout = loadable(() => import('@/layouts/home-layout'))
 export const ResultLayout = loadable(() => import('@/layouts/result-layout'))
-
+export const BeritaLayout = loadable(() => import('@/layouts/berita-layout'))
+export const NewsLayout = loadable(
+  () => import('@/layouts/berita-layout/news-layout'),
+)
+export const PostLayout = loadable(
+  () => import('@/layouts/berita-layout/post-layout'),
+)
 // ------------------
 // ----- Pages -----
 // ------------------

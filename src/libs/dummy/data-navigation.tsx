@@ -3,7 +3,6 @@ import {
   Computer,
   Key,
   LayoutDashboard,
-  Newspaper,
   Scroll,
 } from 'lucide-react'
 
@@ -11,10 +10,6 @@ export const DataNavigation = [
   {
     title: 'Dashboard',
     icon: <LayoutDashboard size={18} />,
-  },
-  {
-    title: 'Berita',
-    icon: <Newspaper size={18} />,
   },
   {
     title: 'Profile',

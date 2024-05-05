@@ -1,100 +1,91 @@
-import clsx from 'clsx'
-import { Check, X } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
+import { hitungMundur } from '@/libs/helpers/format-time'
+import { AlertCircle } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export function ModalError({
-  isSudahDikerjakan,
-  isSudahDimulai,
+  tgl_dimulai,
+  isBelumDimulai,
   isSudahBerakhir,
-  setIsShow,
-  msg,
+  isDikerjakan,
+  isBelumDikerjakan,
 }: {
-  isSudahDikerjakan?: boolean
-  isSudahBerakhir?: boolean
-  isSudahDimulai?: boolean
-  setIsShow: Dispatch<SetStateAction<boolean>>
-  msg: string
+  isBelumDimulai?: boolean
+  tgl_dimulai?: string
+  isSudahBerakhir: boolean
+  isDikerjakan?: boolean
+  isBelumDikerjakan?: boolean
 }) {
+  const [countdownTime, setCountdownTime] = useState(null)
+
+  useEffect(() => {
+    let countdownInterval
+    if (isBelumDimulai && tgl_dimulai) {
+      const countdown = hitungMundur(tgl_dimulai)
+      setCountdownTime(countdown)
+      countdownInterval = setInterval(() => {
+        const updatedCountdown = hitungMundur(tgl_dimulai)
+        setCountdownTime(updatedCountdown)
+      }, 1000)
+    }
+
+    return () => clearInterval(countdownInterval)
+  }, [isBelumDimulai, tgl_dimulai])
+
   return (
     <div className="mb-32 flex flex-col gap-y-32 text-black">
-      <div className="flex flex-col gap-y-12">
-        <p className="text-[2rem]">{msg} tidak bisa ditampilkan karena:</p>
-        {/* --- Sudah Dimulai --- */}
-        <div className="flex items-center gap-x-8 text-[1.8rem]">
-          <div
-            className={clsx(
-              'flex h-[2.4rem] w-[2.4rem] items-center justify-center border-2',
-              {
-                'border-green-700 text-green-700': isSudahDimulai,
-                'border-red-700 text-red-700': !isSudahDimulai,
-              },
-            )}
-          >
-            {isSudahDimulai ? <Check size={16} /> : <X size={16} />}
+      {isBelumDimulai && tgl_dimulai && (
+        <div className="flex flex-col items-center justify-center gap-y-32 pb-64 text-center text-[2rem]">
+          <p className="text-[3rem]">Waktu hingga dimulai</p>
+          <div className="flex items-center justify-center gap-x-24">
+            <div className="flex flex-col gap-y-16">
+              <p className="flex h-[8rem] w-[8rem] items-center justify-center rounded-2xl bg-primary text-[4rem] text-white">
+                {countdownTime?.hari}
+              </p>
+              <p>Hari</p>
+            </div>
+            <p className="text-[3rem]">:</p>
+            <div className="flex flex-col gap-y-16">
+              <p className="flex h-[8rem] w-[8rem] items-center justify-center rounded-2xl bg-primary text-[4rem] text-white">
+                {countdownTime?.jam}
+              </p>
+              <p>Jam</p>
+            </div>
+            <p className="text-[3rem]">:</p>
+            <div className="flex flex-col gap-y-16">
+              <p className="flex h-[8rem] w-[8rem] items-center justify-center rounded-2xl bg-primary text-[4rem] text-white">
+                {countdownTime?.menit}
+              </p>
+              <p>Menit</p>
+            </div>
+            <p className="text-[3rem]">:</p>
+            <div className="flex flex-col gap-y-16">
+              <p className="flex h-[8rem] w-[8rem] items-center justify-center rounded-2xl bg-primary text-[4rem] text-white">
+                {countdownTime?.detik}
+              </p>
+              <p>Detik</p>
+            </div>
           </div>
-          <p
-            className={clsx('', {
-              ' text-green-700': isSudahDimulai,
-              ' text-red-700': !isSudahDimulai,
-            })}
-          >
-            Ujian sudah dimulai
-          </p>
         </div>
-        {/* --- Sudah berakhir --- */}
-        <div className="flex items-center gap-x-8 text-[1.8rem]">
-          <div
-            className={clsx(
-              'flex h-[2.4rem] w-[2.4rem] items-center justify-center border-2',
-              {
-                'border-green-700 text-green-700': isSudahBerakhir,
-                'border-red-700 text-red-700': !isSudahBerakhir,
-              },
-            )}
-          >
-            {isSudahBerakhir ? <Check size={16} /> : <X size={16} />}
-          </div>
-          <p
-            className={clsx('', {
-              ' text-green-700': isSudahBerakhir,
-              ' text-red-700': !isSudahBerakhir,
-            })}
-          >
-            Ujian sudah berakhir
-          </p>
+      )}
+
+      {isSudahBerakhir && (
+        <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
+          <AlertCircle size={90} />
+          <p className="text-[3rem]">Ujian Telah Selesai</p>
         </div>
-        {/* --- Sudah dikerjakan --- */}
-        <div className="flex items-center gap-x-8 text-[1.8rem]">
-          <div
-            className={clsx(
-              'flex h-[2.4rem] w-[2.4rem] items-center justify-center border-2',
-              {
-                'border-green-700 text-green-700': isSudahDikerjakan,
-                'border-red-700 text-red-700': !isSudahDikerjakan,
-              },
-            )}
-          >
-            {isSudahDikerjakan ? <Check size={16} /> : <X size={16} />}
-          </div>
-          <p
-            className={clsx('', {
-              ' text-green-700': isSudahDikerjakan,
-              ' text-red-700': !isSudahDikerjakan,
-            })}
-          >
-            Ujian belum dikerjakan
-          </p>
+      )}
+      {isDikerjakan && (
+        <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
+          <AlertCircle size={90} />
+          <p className="text-[3rem]">Ujian Telah Dikerjakan</p>
         </div>
-      </div>
-      <div className="flex justify-end">
-        <button
-          type="button"
-          className="bg-primary px-24 py-12 text-white"
-          onClick={() => setIsShow(false)}
-        >
-          Kembali
-        </button>
-      </div>
+      )}
+      {isBelumDikerjakan && (
+        <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
+          <AlertCircle size={90} />
+          <p className="text-[3rem]">Ujian Belum Dikerjakan</p>
+        </div>
+      )}
     </div>
   )
 }

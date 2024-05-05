@@ -3,6 +3,7 @@ import {
   BeritaDetailType,
   BeritaParams,
   BeritaType,
+  ListBeritaType,
 } from '@/libs/types/berita-type'
 import { Res, api } from '../api'
 
@@ -16,6 +17,11 @@ export const pengumumanEndpoints = api.injectEndpoints({
           page_number,
           ...(search !== null && { search }),
         },
+      }),
+    }),
+    getListPengumumanKategori: builder.query<Res<ListBeritaType[]>, void>({
+      query: () => ({
+        url: 'kategori/pengumuman',
       }),
     }),
     getPengumumanKategori: builder.query<Res<BeritaType[]>, BeritaParams>({
@@ -44,6 +50,7 @@ export const pengumumanEndpoints = api.injectEndpoints({
 })
 
 export const {
+  useGetListPengumumanKategoriQuery,
   useGetPengumumanQuery,
   useGetPengumumanKategoriQuery,
   useGetPengumumanDetailQuery,

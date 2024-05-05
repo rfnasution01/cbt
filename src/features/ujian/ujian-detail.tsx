@@ -6,7 +6,7 @@ import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { DialogHelpers } from '@/components/molecules/dialog'
 import { ModalError } from '../hasil-ujian/modal-error'
-import { isSudahBerakhir, isSudahDimulai } from '@/libs/helpers/format-time'
+import { isSudahBerakhir, isTanggalBerlalu } from '@/libs/helpers/format-time'
 
 export function UjianDetail({
   data,
@@ -106,21 +106,27 @@ export function UjianDetail({
         noPadding
         customComponent={
           <ModalError
-            msg="Ujian"
-            setIsShow={setIsShow}
-            isSudahDikerjakan={
+            tgl_dimulai={
               data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
-                ?.skor !== 1
+                ?.tanggal_mulai
             }
-            isSudahDimulai={isSudahDimulai(
-              data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
-                ?.tanggal_mulai,
-            )}
-            isSudahBerakhir={
-              !isSudahBerakhir(
+            isBelumDimulai={
+              !isTanggalBerlalu(
                 data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
-                  ?.tanggal_akhir,
+                  ?.tanggal_mulai,
               )
+            }
+            isSudahBerakhir={isSudahBerakhir(
+              data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
+                ?.tanggal_akhir,
+            )}
+            isDikerjakan={
+              data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
+                ?.skor === 1
+            }
+            isBelumDikerjakan={
+              data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
+                ?.skor === 0
             }
           />
         }

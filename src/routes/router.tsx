@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
-  BeritaPage,
+  BeritaLayout,
   CBTLayout,
   ChangePasswordPage,
   HasilUjianPage,
@@ -8,7 +8,9 @@ import {
   HomePage,
   LoginLayout,
   LoginPage,
+  NewsLayout,
   NotFoundPage,
+  PostLayout,
   ProfilePage,
   ResultLayout,
   RootLayout,
@@ -46,12 +48,50 @@ export const router = createBrowserRouter([
           { path: 'ganti-password', element: <ChangePasswordPage /> },
           { path: 'ujian', element: <UjianPage /> },
           { path: 'hasil-ujian', element: <HasilUjianPage /> },
-          { path: 'berita', element: <BeritaPage /> },
         ],
       },
       {
         path: 'cbt',
         element: <CBTLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
+      },
+      {
+        path: 'berita',
+        element: <BeritaLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
+      },
+      {
+        path: 'news',
+        element: <NewsLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
+      },
+      {
+        path: 'post',
+        element: <PostLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
 
