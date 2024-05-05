@@ -16,6 +16,10 @@ export const NewsLayout = loadable(
 export const PostLayout = loadable(
   () => import('@/layouts/berita-layout/post-layout'),
 )
+export const PercobaanLayout = loadable(
+  () => import('@/layouts/percobaan-layout'),
+)
+
 // ------------------
 // ----- Pages -----
 // ------------------

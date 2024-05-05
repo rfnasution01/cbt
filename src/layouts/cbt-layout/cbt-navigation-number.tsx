@@ -7,11 +7,13 @@ export function CBTNavigationNumber({
   noSoal,
   setNoSoal,
   kodeSoal,
+  isPercobaan,
 }: {
   kodeSoal: string
   totalSoal?: number
   noSoal: number
   setNoSoal: Dispatch<SetStateAction<number>>
+  isPercobaan?: boolean
 }) {
   const navigate = useNavigate()
   const isOpenNow = (nomor: number) => {
@@ -28,7 +30,11 @@ export function CBTNavigationNumber({
   const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]')
 
   const handleSetNomorSoal = (nomor: number) => {
-    navigate(`/cbt?idUjian=${kodeSoal}&nomor=${nomor}`)
+    navigate(
+      isPercobaan
+        ? `/percobaan?idUjian=${kodeSoal}&nomor=${nomor}`
+        : `/cbt?idUjian=${kodeSoal}&nomor=${nomor}`,
+    )
     setNoSoal(nomor)
   }
 

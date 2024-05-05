@@ -37,6 +37,7 @@ const CountdownTimer = ({
     return () => clearInterval(intervalId)
   }, [])
 
+  // --- Waktu kurang dari 5 menit ---
   useEffect(() => {
     if (time.minutes === 5 && time.seconds === 0) {
       toast.error(`'Waktu tersisa kurang dari 5 Menit`, {
@@ -51,9 +52,15 @@ const CountdownTimer = ({
         transition: Bounce,
       })
     }
-    // Navigasi ke '/home' saat hitungan mundur selesai
-    if (time.minutes === 0 && time.seconds === 0) {
+  }, [time])
+
+  // --- Waktu habis ---
+  useEffect(() => {
+    if (time.minutes <= 0) {
       handleSelesai()
+      setTimeout(() => {
+        navigate('/hasil-ujian')
+      }, 1000)
     }
   }, [time])
 

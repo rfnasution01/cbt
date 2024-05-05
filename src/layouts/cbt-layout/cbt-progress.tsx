@@ -1,6 +1,7 @@
 import CountdownTimer from '@/components/atoms/TimeCountDown'
 import { hitungSelisihMenit } from '@/libs/helpers/format-time'
 import { Timer } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export function CBTProgress({
   totalSoal = 10,
@@ -12,6 +13,15 @@ export function CBTProgress({
   const smartlearningData = JSON.parse(
     localStorage.getItem('smartlearning') || '{}',
   )
+  const [dijawab, setDijawab] = useState<number>(
+    smartlearningData?.jawaban?.length,
+  )
+
+  useEffect(() => {
+    if (smartlearningData) {
+      setDijawab(smartlearningData?.jawaban?.length)
+    }
+  }, [smartlearningData])
 
   const totalDijawab = smartlearningData?.jawaban?.length
 
@@ -27,7 +37,7 @@ export function CBTProgress({
       {/* --- Text --- */}
       <div className="flex items-center justify-between gap-x-32">
         <p>
-          Dijawab <span className="text-primary">{totalDijawab ?? 0}</span>/
+          Dijawab <span className="text-primary">{dijawab ?? 0}</span>/
           {totalSoal}
         </p>
         <div className="flex items-center gap-x-8">

@@ -16,6 +16,7 @@ export function CBTNavigationHome({
   isShowNav,
   setIsShowModal,
   idUjian,
+  isPercobaan,
 }: {
   isShow: boolean
   noSoal: number
@@ -26,6 +27,7 @@ export function CBTNavigationHome({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isDisabled: boolean
   isShowNav: boolean
+  isPercobaan?: boolean
   idUjian: string
 }) {
   return (
@@ -61,6 +63,7 @@ export function CBTNavigationHome({
                     totalSoal={dataSoal.length}
                     noSoal={noSoal}
                     setNoSoal={setNoSoal}
+                    isPercobaan={isPercobaan}
                   />
                 </div>
                 {/* --- Selesai --- */}

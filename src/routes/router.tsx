@@ -10,6 +10,7 @@ import {
   LoginPage,
   NewsLayout,
   NotFoundPage,
+  PercobaanLayout,
   PostLayout,
   ProfilePage,
   ResultLayout,
@@ -53,6 +54,19 @@ export const router = createBrowserRouter([
       {
         path: 'cbt',
         element: <CBTLayout />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+
+          if (!jwtPayload) {
+            return redirect('/login')
+          }
+
+          return null
+        },
+      },
+      {
+        path: 'percobaan',
+        element: <PercobaanLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
 

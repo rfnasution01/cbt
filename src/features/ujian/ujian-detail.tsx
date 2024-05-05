@@ -12,10 +12,12 @@ export function UjianDetail({
   data,
   ujianName,
   setPage,
+  isPercobaan,
 }: {
   data: UjianType[]
   ujianName?: string
   setPage?: Dispatch<SetStateAction<string>>
+  isPercobaan?: boolean
 }) {
   const navigate = useNavigate()
   const ujianNow = data?.find((item) => item?.id_ujian === ujianName)
@@ -44,7 +46,11 @@ export function UjianDetail({
 
       localStorage.setItem('mulaiujian', JSON.stringify(dataToSave))
     }
-    navigate(`/cbt?idUjian=${item?.id_ujian}`)
+    navigate(
+      isPercobaan
+        ? `/percobaan?idUjian=${item?.id_ujian}`
+        : `/cbt?idUjian=${item?.id_ujian}`,
+    )
   }
 
   const tanggalMulai = ujianNow?.tanggal_mulai

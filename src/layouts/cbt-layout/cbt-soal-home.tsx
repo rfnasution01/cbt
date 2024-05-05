@@ -18,6 +18,7 @@ export function CBTSoalHome({
   ukuranSoal,
   idUjian,
   setNoSoal,
+  isPercobaan,
 }: {
   isShow: boolean
   noSoal: number
@@ -29,6 +30,7 @@ export function CBTSoalHome({
   isDisabled: boolean
   ukuranSoal: string
   idUjian: string
+  isPercobaan?: boolean
 }) {
   const soalNow = dataSoal?.find(
     (item) => Number(item?.number) == noSoal,
@@ -87,6 +89,7 @@ export function CBTSoalHome({
                 idSoal={idSoalNow}
               />
               <CBTSoalButton
+                isPercobaan={isPercobaan}
                 noSoal={noSoal}
                 kodeSoal={idUjian}
                 setNoSoal={setNoSoal}

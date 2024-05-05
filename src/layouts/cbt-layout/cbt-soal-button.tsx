@@ -9,16 +9,22 @@ export function CBTSoalButton({
   setNoSoal,
   noSoal,
   totalSoal,
+  isPercobaan,
 }: {
   kodeSoal: string
   setNoSoal: Dispatch<SetStateAction<number>>
   noSoal: number
+  isPercobaan?: boolean
   totalSoal: number
 }) {
   const navigate = useNavigate()
 
   const handleButton = (nomor: number) => {
-    navigate(`/cbt?idUjian=${kodeSoal}&nomor=${nomor}`)
+    navigate(
+      isPercobaan
+        ? `/percobaan?idUjian=${kodeSoal}&nomor=${nomor}`
+        : '`/cbt?idUjian=${kodeSoal}&nomor=${nomor}`',
+    )
     setNoSoal(nomor)
   }
 
