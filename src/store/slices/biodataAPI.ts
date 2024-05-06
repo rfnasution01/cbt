@@ -1,5 +1,6 @@
 import { BiodataType, PostBiodataParams } from '@/libs/types/biodata-type'
 import { Res, api } from '../api'
+import { ResponseLoginType } from '@/libs/types'
 
 export const biodataEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +10,10 @@ export const biodataEndpoints = api.injectEndpoints({
       }),
       providesTags: ['biodata'],
     }),
-    createBiodata: builder.mutation<void, { data: PostBiodataParams }>({
+    createBiodata: builder.mutation<
+      Res<ResponseLoginType>,
+      { data: PostBiodataParams }
+    >({
       query: ({ data }) => ({
         url: `biodata`,
         method: 'POST',

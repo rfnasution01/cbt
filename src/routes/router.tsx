@@ -30,9 +30,12 @@ export const router = createBrowserRouter([
         element: <HomeLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null
@@ -56,9 +59,12 @@ export const router = createBrowserRouter([
         element: <CBTLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null
@@ -69,9 +75,12 @@ export const router = createBrowserRouter([
         element: <PercobaanLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null
@@ -82,9 +91,12 @@ export const router = createBrowserRouter([
         element: <BeritaLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null
@@ -95,9 +107,12 @@ export const router = createBrowserRouter([
         element: <NewsLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null
@@ -108,9 +123,12 @@ export const router = createBrowserRouter([
         element: <PostLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null
@@ -121,9 +139,12 @@ export const router = createBrowserRouter([
         element: <ResultLayout />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const isUpdate = localStorage.getItem('isUpdate')
 
           if (!jwtPayload) {
             return redirect('/login')
+          } else if (jwtPayload && isUpdate === 'yes') {
+            return redirect('/update-profile')
           }
 
           return null

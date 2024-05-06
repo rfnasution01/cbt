@@ -54,6 +54,7 @@ export default function LoginForm() {
         const token = res?.data?.data?.token
         const updateProfile = res?.data?.data?.update_profil
         const changePassword = res?.data?.data?.change_password
+        localStorage.setItem('isUpdate', updateProfile ? 'yes' : 'no')
         setIsUpdate(updateProfile)
         setIsChange(changePassword)
         Cookies.set('token', token)

@@ -43,7 +43,13 @@ export default function UpdateProfile({
 
   async function handleFormSignup(values) {
     try {
-      await createBiodata({ data: values })
+      const res = await createBiodata({ data: values })
+      if ('data' in res) {
+        const updateProfile = res?.data?.data?.update_profil
+        localStorage.setItem('isUpdate', updateProfile ? 'yes' : 'no')
+      } else {
+        console.error('Error occurred:', res.error)
+      }
     } catch (error) {
       console.log(error)
     }
