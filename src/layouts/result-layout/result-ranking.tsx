@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 export function ResultRanking({ idUjian }: { idUjian: string }) {
   const { data } = useGetRankingUjianQuery({ id_ujian: idUjian })
   const [ranking, setRanking] = useState<RankingType>()
-  const [numberStart, setNumberStart] = useState<number>(0)
+  const [numberStart, setNumberStart] = useState<number>(4400)
   const dataPerPage = 100
   const [search, setSearch] = useState<string>('')
 
@@ -30,12 +30,6 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
     }
   }, [dataBiodata?.data])
 
-  const rankNow = ranking?.ranking_semua?.find(
-    (item) => item?.nisn === biodata?.pribadi?.nisn,
-  )
-
-  console.log(rankNow)
-
   const handleSearch = debounce((searchValue: string) => {
     setSearch(searchValue)
   }, 300)
@@ -44,6 +38,11 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
     const { value } = e.target
     setNumberStart(0)
     handleSearch(value)
+  }
+
+  const handleFiltereSekolah = (searchValue: string) => {
+    setNumberStart(0)
+    handleSearch(searchValue)
   }
 
   const filterData = (search: string) => {
@@ -61,10 +60,36 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
   const maxPage = Math.ceil(filteredData?.length / dataPerPage)
   const pageNow = Math.ceil(numberStart / dataPerPage)
 
+  const rankNow = ranking?.ranking_semua?.find(
+    (item) => item?.nisn === biodata?.pribadi?.nisn,
+  )?.ranking
+
+  const start = Math.ceil(Number(rankNow) / 100) * 100 - 100
+
   return (
     <div className="flex flex-col gap-y-32">
       <div className="flex items-center justify-between">
-        <p className="text-[2rem] font-bold">List Ranking</p>
+        <div className="flex items-center gap-x-32">
+          <p className="text-[2rem] font-bold">List Ranking</p>
+          <button
+            type="button"
+            onClick={() => {
+              setNumberStart(start)
+            }}
+            className="rounded-2xl bg-primary px-24 py-12 text-white"
+          >
+            Lihat Rank Saya
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              handleFiltereSekolah(biodata?.sekolah?.nama.toLocaleLowerCase())
+            }}
+            className="rounded-2xl bg-primary px-24 py-12 text-white"
+          >
+            Lihat Rank Sekolah Saya
+          </button>
+        </div>
         <input
           type="text"
           className="w-6/12 rounded-lg border border-gray-300 p-16 text-[2rem] focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 phones:w-1/2"
@@ -79,7 +104,7 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
         >
           <thead className="sticky top-0 bg-white">
             <tr className="text-left">
-              <th className="py-16 text-center">#</th>
+              <th className="text-center">#</th>
               <th className="py-16 text-center">Rank</th>
               <th className="pl-8">Nama</th>
               <th className="pl-8">NISN</th>

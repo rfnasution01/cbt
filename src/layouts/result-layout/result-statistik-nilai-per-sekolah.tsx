@@ -69,7 +69,7 @@ export function StatistikNilaiPerSekolah({
 
   return (
     <div className="flex flex-col gap-y-24 rounded-2xl bg-white p-32 phones:w-full">
-      <h2>Statistik Nilai Siswa Per Sekolah</h2>
+      <h2>Statistik Rata-Rata Nilai Siswa Per Sekolah</h2>
       <Bar data={barData} options={options} />
     </div>
   )
