@@ -13,6 +13,7 @@ export type UjianType = {
   status: number
   dijawab: number
   tidak_dijawab: number
+  nilai_lulus?: number
   benar: number
   salah: number
   status_lulus: null | boolean

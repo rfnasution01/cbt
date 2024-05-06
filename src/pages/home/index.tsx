@@ -36,7 +36,9 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-32">
       <HomeCard ujian={ujian} disabled={disabled} />
-      <HomeStatistik data={ujian?.filter((item) => item?.status === 1)} />
+      {ujian?.length > 0 && (
+        <HomeStatistik data={ujian?.filter((item) => item?.status === 1)} />
+      )}
     </div>
   )
 }

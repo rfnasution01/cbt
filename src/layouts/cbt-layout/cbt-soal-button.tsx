@@ -23,7 +23,7 @@ export function CBTSoalButton({
     navigate(
       isPercobaan
         ? `/percobaan?idUjian=${kodeSoal}&nomor=${nomor}`
-        : '`/cbt?idUjian=${kodeSoal}&nomor=${nomor}`',
+        : `/cbt?idUjian=${kodeSoal}&nomor=${nomor}`,
     )
     setNoSoal(nomor)
   }
