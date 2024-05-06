@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 export function ResultRanking({ idUjian }: { idUjian: string }) {
   const { data } = useGetRankingUjianQuery({ id_ujian: idUjian })
   const [ranking, setRanking] = useState<RankingType>()
-  const [numberStart, setNumberStart] = useState<number>(4400)
+  const [numberStart, setNumberStart] = useState<number>(0)
   const dataPerPage = 100
   const [search, setSearch] = useState<string>('')
 
@@ -66,15 +66,40 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
 
   const start = Math.ceil(Number(rankNow) / 100) * 100 - 100
 
+  const isSekolah =
+    ranking?.ranking_semua
+      .find((item) => item?.nisn === biodata?.pribadi?.nisn)
+      ?.sekolah.toLowerCase() === search
+
   return (
     <div className="flex flex-col gap-y-32">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-x-32">
-          <p className="text-[2rem] font-bold">List Ranking</p>
           <button
             type="button"
             onClick={() => {
-              setNumberStart(start)
+              handleFiltereSekolah('')
+            }}
+            className="rounded-2xl bg-primary px-24 py-12 text-white"
+          >
+            List Rank
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (isSekolah) {
+                const rankNowFiltered = filteredData?.find(
+                  (item) => item?.nisn === biodata?.pribadi?.nisn,
+                )
+
+                const rankIndex = filteredData?.indexOf(rankNowFiltered)
+
+                const startFiltered =
+                  Math.ceil(Number(rankIndex) / 100) * 100 - 100
+                setNumberStart(startFiltered)
+              } else {
+                setNumberStart(start)
+              }
             }}
             className="rounded-2xl bg-primary px-24 py-12 text-white"
           >
@@ -119,9 +144,10 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
               .map((item, idx) => (
                 <tr
                   key={idx}
-                  className={clsx('hover:cursor-pointer hover:bg-slate-50', {
-                    'bg-primary text-white':
+                  className={clsx('hover:cursor-pointer', {
+                    'bg-primary text-white hover:bg-primary-shade-700':
                       biodata?.pribadi?.nisn === item?.nisn,
+                    'hover:bg-slate-50': biodata?.pribadi?.nisn !== item?.nisn,
                   })}
                 >
                   <td className="text-center">{numberStart + idx + 1}</td>

@@ -25,7 +25,7 @@ export function HomeCard({
             onClick={() => {
               navigate('/ujian')
             }}
-            className="col-span-4 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md phones:col-span-6"
+            className="col-span-4 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md phones:col-span-12"
           >
             <div className="flex items-center gap-32">
               <div className="flex flex-1 flex-col justify-center gap-y-12">
@@ -42,7 +42,7 @@ export function HomeCard({
             onClick={() => {
               navigate('/ujian')
             }}
-            className="col-span-4 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md phones:col-span-6"
+            className="col-span-4 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md phones:col-span-12"
           >
             <div className="flex items-center gap-32">
               <div className="flex flex-1 flex-col justify-center gap-y-12">
@@ -62,7 +62,7 @@ export function HomeCard({
             onClick={() => {
               navigate('/hasil-ujian')
             }}
-            className="col-span-4 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md phones:col-span-6"
+            className="col-span-4 rounded-2xl bg-white p-32 shadow hover:cursor-pointer hover:shadow-md phones:col-span-12"
           >
             <div className="flex items-center gap-32">
               <div className="flex flex-1 flex-col justify-center gap-y-12">
