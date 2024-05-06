@@ -56,7 +56,7 @@ export function StatistikBenarBarChart({
   }
 
   return (
-    <div className="scrollbar w-4/12 gap-y-24 overflow-x-auto phones:w-full">
+    <div className="scrollbar w-6/12 gap-y-24 overflow-x-auto phones:w-full">
       <div className="scrollbar flex w-full flex-col overflow-x-auto rounded-2xl bg-white p-32">
         <h2>Statistik Soal Benar</h2>
         <Bar options={options} data={data} />

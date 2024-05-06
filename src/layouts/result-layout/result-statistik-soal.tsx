@@ -37,7 +37,7 @@ export function StatistikSoalPieChart({
   }
 
   return (
-    <div className="flex w-4/12 flex-col gap-y-24 rounded-2xl bg-white p-32 phones:w-full">
+    <div className="flex w-6/12 flex-col gap-y-24 rounded-2xl bg-white p-32 phones:w-full">
       <h2>Statistik Soal</h2>
       <Pie data={data} />
     </div>

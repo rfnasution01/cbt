@@ -56,7 +56,7 @@ export function StatistikDijawabBarChart({
   }
 
   return (
-    <div className="w-4/12 gap-y-24 phones:w-full">
+    <div className="w-6/12 gap-y-24 phones:w-full">
       <div className="flex flex-col rounded-2xl bg-white p-32">
         <h2>Statistik Soal Dijawab</h2>
         <Bar options={options} data={data} />

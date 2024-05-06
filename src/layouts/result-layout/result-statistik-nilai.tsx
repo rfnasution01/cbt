@@ -1,13 +1,24 @@
-import { PembahasanType, StatistikType, UjianType } from '@/libs/types/cbt-type'
+import {
+  PembahasanType,
+  RankingType,
+  StatistikType,
+  UjianType,
+} from '@/libs/types/cbt-type'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StatistikSoalPieChart } from './result-statistik-soal'
 import { StatistikDijawabBarChart } from './result-statistik-dijawab'
 import { StatistikBenarBarChart } from './result-statistik-benar'
-import { useGetUjianQuery } from '@/store/slices/cbtAPI'
+import {
+  useGetRankingUjianQuery,
+  useGetUjianQuery,
+} from '@/store/slices/cbtAPI'
 import Cookies from 'js-cookie'
 import Loading from '@/components/atoms/Loading'
 import { StatistikHasil } from './result-statistik-hasil'
+import { ResultRanking } from './result-ranking'
+import { StatistikSekolahPieChart } from './result-statistik-sekolah'
+import { StatistikNilaiPerSekolah } from './result-statistik-nilai-per-sekolah'
 
 export function ResultStatistikNilai({
   data,
@@ -71,6 +82,16 @@ export function ResultStatistikNilai({
     }
     return acc
   }, {})
+
+  // --- Ranking ---
+  const { data: dataRanking } = useGetRankingUjianQuery({ id_ujian: idUjian })
+  const [ranking, setRanking] = useState<RankingType>()
+
+  useEffect(() => {
+    if (dataRanking?.data) {
+      setRanking(dataRanking?.data)
+    }
+  }, [dataRanking?.data])
 
   return (
     <div className="flex flex-col gap-y-24">
@@ -137,10 +158,16 @@ export function ResultStatistikNilai({
       {/* --- Statistik --- */}
       <p className="text-[2rem] font-bold">Statistik</p>
       <div className="flex gap-32 phones:flex-col">
-        <StatistikSoalPieChart jsonData={data} />
         <StatistikDijawabBarChart jsonData={data} />
         <StatistikBenarBarChart jsonData={data} />
       </div>
+      <div className="flex gap-32 phones:flex-col">
+        <StatistikSoalPieChart jsonData={data} />
+        <StatistikSekolahPieChart jsonData={ranking?.ranking_semua} />
+      </div>
+      <StatistikNilaiPerSekolah jsonData={ranking?.ranking_semua} />
+
+      <ResultRanking idUjian={idUjian} />
     </div>
   )
 }
