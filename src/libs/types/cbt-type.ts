@@ -13,6 +13,7 @@ export type UjianType = {
   status: number
   dijawab: number
   tidak_dijawab: number
+  token_pengerjaan?: string
   nilai_lulus?: number
   benar: number
   salah: number

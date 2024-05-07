@@ -73,7 +73,7 @@ export default function LoginForm() {
         navigate(
           isUpdate ? '/update-profile' : isChange ? '/ganti-password' : '/',
         )
-      }, 3000)
+      }, 1000)
     }
   }, [loginIsSuccess])
 
@@ -125,7 +125,7 @@ export default function LoginForm() {
                   </span>
                   <div className="phones:hidden">
                     <Tooltips
-                      triggerComponent={<CircleAlert size={16} />}
+                      triggerComponent={<CircleAlert size={14} />}
                       tooltipContent={
                         <span>Username default adalah No Peserta / NISN</span>
                       }
@@ -150,7 +150,7 @@ export default function LoginForm() {
                   </span>
                   <div className="phones:hidden">
                     <Tooltips
-                      triggerComponent={<CircleAlert size={16} />}
+                      triggerComponent={<CircleAlert size={14} />}
                       tooltipContent={
                         <span>Password default adalah No Peserta / NISN</span>
                       }

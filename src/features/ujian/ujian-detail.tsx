@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { DialogHelpers } from '@/components/molecules/dialog'
 import { ModalError } from '../hasil-ujian/modal-error'
 import { isSudahBerakhir, isTanggalBerlalu } from '@/libs/helpers/format-time'
+import { ModalInputToken } from './modal-input-token'
 
 export function UjianDetail({
   data,
@@ -22,6 +23,7 @@ export function UjianDetail({
   const navigate = useNavigate()
   const ujianNow = data?.find((item) => item?.id_ujian === ujianName)
   const [isShow, setIsShow] = useState<boolean>(false)
+  const [isShowToken, setIsShowToken] = useState<boolean>(false)
 
   const handleStartExam = (item) => {
     // Cek apakah mulaiUjian sudah ada di local storage
@@ -84,7 +86,11 @@ export function UjianDetail({
             type="button"
             onClick={() => {
               if (ujianNow?.status === 0 && !disabled) {
-                handleStartExam(ujianNow)
+                if (ujianNow?.token_pengerjaan === '') {
+                  handleStartExam(ujianNow)
+                } else {
+                  setIsShowToken(true)
+                }
               } else {
                 setIsShow(true)
               }
@@ -134,6 +140,28 @@ export function UjianDetail({
               data?.find((item) => item?.id_ujian === ujianNow?.id_ujian)
                 ?.status === 0
             }
+          />
+        }
+      />
+      <DialogHelpers
+        title={
+          <div className="flex h-[7.6rem] items-center bg-primary-shade-500 px-24 text-[3.2rem] text-secondary-shade-100">
+            <Link to="/" className="phones:hidden">
+              CBT
+              <span className="text-primary-shade-200">SmartLearning</span>
+            </Link>
+          </div>
+        }
+        open={isShowToken}
+        setOpen={setIsShowToken}
+        height="auto"
+        size="small"
+        noPadding
+        customComponent={
+          <ModalInputToken
+            token={ujianNow?.token_pengerjaan}
+            isPercobaan={isPercobaan}
+            ujianNow={ujianNow}
           />
         }
       />

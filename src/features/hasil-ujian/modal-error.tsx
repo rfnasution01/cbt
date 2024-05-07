@@ -68,24 +68,18 @@ export function ModalError({
         </div>
       )}
 
-      {isSudahBerakhir && (
-        <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
+      <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
+        {(isSudahBerakhir || isDikerjakan || isBelumDikerjakan) && (
           <AlertCircle size={90} />
-          <p className="text-[3rem]">Ujian Telah Selesai</p>
-        </div>
-      )}
-      {isDikerjakan && (
-        <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
-          <AlertCircle size={90} />
-          <p className="text-[3rem]">Ujian Telah Dikerjakan</p>
-        </div>
-      )}
-      {isBelumDikerjakan && (
-        <div className="flex flex-col items-center justify-center gap-y-32 pb-32 text-center text-[2rem]">
-          <AlertCircle size={90} />
+        )}
+        {isSudahBerakhir && (
+          <p className="text-[3rem]">Waktu Ujian Telah Berakhir</p>
+        )}
+        {isDikerjakan && <p className="text-[3rem]">Ujian Telah Dikerjakan</p>}
+        {isBelumDikerjakan && (
           <p className="text-[3rem]">Ujian Belum Dikerjakan</p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
