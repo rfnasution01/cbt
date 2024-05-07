@@ -32,7 +32,13 @@ export function HomeStatistik({ data }: { data: UjianType[] }) {
                 >
                   <td className="text-center">{idx + 1}</td>
                   <td className="pl-8 align-middle">{item?.nama_ujian}</td>
-                  <td className="pl-8 align-middle">{item?.nilai_lulus}</td>
+                  <td className="pl-8 align-middle">
+                    {item?.nilai_lulus === undefined ||
+                    item?.nilai_lulus === null ||
+                    item?.nilai_lulus === 0
+                      ? 'Tidak Ada'
+                      : item?.nilai_lulus}
+                  </td>
                   <td className="pl-8 align-middle">{item?.skor}</td>
                   <td className="pl-8 align-middle">
                     <Ranking idUjian={item?.id_ujian} isPeserta />

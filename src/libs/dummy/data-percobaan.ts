@@ -22,6 +22,7 @@ export const DataPercobaan: UjianType[] = [
     tag: 'Matematika',
     status: 0,
     dijawab: 45,
+    token_pengerjaan: '',
     tidak_dijawab: 5,
     benar: 40,
     salah: 5,

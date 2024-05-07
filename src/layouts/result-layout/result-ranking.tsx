@@ -129,8 +129,16 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
         >
           <thead className="sticky top-0 bg-white">
             <tr className="text-left">
-              <th className="text-center">#</th>
-              <th className="py-16 text-center">Rank</th>
+              <th className="text-center">
+                {search !== biodata?.sekolah?.nama.toLowerCase()
+                  ? '#'
+                  : 'Rank Sekolah'}
+              </th>
+              <th className="py-16 text-center">
+                {search !== biodata?.sekolah?.nama.toLowerCase()
+                  ? 'Rank'
+                  : 'Rank Umum'}
+              </th>
               <th className="pl-8">Nama</th>
               <th className="pl-8">NISN</th>
               <th className="text-center">Sekolah</th>

@@ -7,7 +7,6 @@ import {
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StatistikSoalPieChart } from './result-statistik-soal'
-import { StatistikDijawabBarChart } from './result-statistik-dijawab'
 import { StatistikBenarBarChart } from './result-statistik-benar'
 import {
   useGetRankingUjianQuery,
@@ -158,7 +157,7 @@ export function ResultStatistikNilai({
       {/* --- Statistik --- */}
       <p className="text-[2rem] font-bold">Statistik</p>
       <div className="flex gap-32 phones:flex-col">
-        <StatistikDijawabBarChart jsonData={data} />
+        {/* <StatistikDijawabBarChart jsonData={data} /> */}
         <StatistikBenarBarChart jsonData={data} />
       </div>
       <div className="flex gap-32 phones:flex-col">
