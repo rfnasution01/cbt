@@ -6,9 +6,11 @@ import { useEffect, useState } from 'react'
 export function CBTProgress({
   totalSoal = 10,
   idUjian,
+  isPercobaan,
 }: {
   totalSoal?: number
   idUjian: string
+  isPercobaan?: boolean
 }) {
   const smartlearningData = JSON.parse(
     localStorage.getItem('smartlearning') || '{}',
@@ -45,7 +47,11 @@ export function CBTProgress({
             <Timer />
           </span>
           <div className="flex items-center">
-            <CountdownTimer waktuUjian={sisaWaktuSoal} idUjian={idUjian} />
+            <CountdownTimer
+              waktuUjian={sisaWaktuSoal}
+              idUjian={idUjian}
+              isPercobaan={isPercobaan}
+            />
           </div>
         </div>
       </div>

@@ -10,9 +10,11 @@ import 'react-toastify/dist/ReactToastify.css'
 const CountdownTimer = ({
   waktuUjian = 10,
   idUjian,
+  isPercobaan,
 }: {
   waktuUjian?: number
   idUjian: string
+  isPercobaan?: boolean
 }) => {
   const [time, setTime] = useState({
     minutes: waktuUjian,
@@ -57,7 +59,13 @@ const CountdownTimer = ({
   // --- Waktu habis ---
   useEffect(() => {
     if (time.minutes <= 0) {
-      handleSelesai()
+      if (isPercobaan) {
+        localStorage.removeItem('smartlearning')
+        localStorage.removeItem('mulaiujian')
+        localStorage.removeItem('bookmarks')
+      } else {
+        handleSelesai()
+      }
       setTimeout(() => {
         navigate('/hasil-ujian')
       }, 1000)
