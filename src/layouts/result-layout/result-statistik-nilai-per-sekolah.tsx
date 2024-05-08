@@ -15,25 +15,31 @@ export function StatistikNilaiPerSekolah({
   // Mengelompokkan total skor dan jumlah siswa berdasarkan nama sekolah
   jsonData?.forEach((item) => {
     const { sekolah, skor } = item
-    const nilai = parseInt(skor) // Mengubah skor ke dalam tipe number
-    if (sekolahData[sekolah]) {
-      sekolahData[sekolah].totalSkor += nilai
-      sekolahData[sekolah].jumlahSiswa++
-    } else {
-      sekolahData[sekolah] = { totalSkor: nilai, jumlahSiswa: 1 }
-    }
-  })
 
-  // Menghitung rata-rata skor per sekolah
-  const rataRataSkorPerSekolah = {}
-  Object.keys(sekolahData).forEach((sekolah) => {
-    const { totalSkor, jumlahSiswa } = sekolahData[sekolah]
-    rataRataSkorPerSekolah[sekolah] = totalSkor / jumlahSiswa
+    // Jika sekolah belum ada dalam sekolahData, inisialisasi data baru
+    if (!sekolahData[sekolah]) {
+      sekolahData[sekolah] = {
+        totalSkor: 0,
+        jumlahSiswa: 0,
+      }
+    }
+
+    // Tambahkan skor siswa ke total skor sekolah, jika skor bukan NaN
+    if (!isNaN(parseInt(skor))) {
+      sekolahData[sekolah].totalSkor += parseInt(skor)
+    }
+
+    // Tambahkan jumlah siswa sekolah
+    sekolahData[sekolah].jumlahSiswa++
   })
 
   // Membuat array untuk labels (nama sekolah) dan data (rata-rata skor)
-  const labels = Object.keys(rataRataSkorPerSekolah)
-  const data = Object.values(rataRataSkorPerSekolah)
+  const labels = Object.keys(sekolahData)
+  const data = labels.map((sekolah) => {
+    const { totalSkor, jumlahSiswa } = sekolahData[sekolah]
+    // Hitung rata-rata skor, jika jumlah siswa bukan 0, jika tidak berikan nilai 0
+    return jumlahSiswa !== 0 ? totalSkor / jumlahSiswa : 0
+  })
 
   // Konfigurasi data untuk grafik bar
   const barData = {

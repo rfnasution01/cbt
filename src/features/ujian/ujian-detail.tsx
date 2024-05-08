@@ -24,6 +24,7 @@ export function UjianDetail({
   const ujianNow = data?.find((item) => item?.id_ujian === ujianName)
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isShowToken, setIsShowToken] = useState<boolean>(false)
+  const [isShowTokenMobile, setIsShowTokenMobile] = useState<boolean>(false)
 
   const handleStartExam = (item) => {
     // Cek apakah mulaiUjian sudah ada di local storage
@@ -95,10 +96,30 @@ export function UjianDetail({
                 setIsShow(true)
               }
             }}
-            className="flex flex-1 items-center justify-center gap-x-8 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed disabled:hover:bg-primary-shade-500 phones:w-full"
+            className="flex flex-1 items-center justify-center gap-x-8 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed disabled:hover:bg-primary-shade-500 phones:hidden phones:w-full"
           >
             <p>Mulai</p>
             <ArrowRightFromLine size={16} />
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (ujianNow?.status === 0 && !disabled) {
+                if (ujianNow?.token_pengerjaan === '') {
+                  handleStartExam(ujianNow)
+                } else {
+                  setIsShowTokenMobile(true)
+                }
+              } else {
+                setIsShow(true)
+              }
+            }}
+            className="hidden flex-1 rounded-2xl bg-primary py-12 text-white hover:bg-primary-shade-700 disabled:cursor-not-allowed disabled:hover:bg-primary-shade-500 phones:block phones:w-full"
+          >
+            <div className="flex items-center justify-center gap-x-8 ">
+              <p>Mulai</p>
+              <ArrowRightFromLine size={16} />
+            </div>
           </button>
         </div>
       </div>
@@ -156,6 +177,28 @@ export function UjianDetail({
         setOpen={setIsShowToken}
         height="auto"
         size="small"
+        noPadding
+        customComponent={
+          <ModalInputToken
+            token={ujianNow?.token_pengerjaan}
+            isPercobaan={isPercobaan}
+            ujianNow={ujianNow}
+          />
+        }
+      />
+      <DialogHelpers
+        title={
+          <div className="flex h-[7.6rem] items-center bg-primary-shade-500 px-24 text-[3.2rem] text-secondary-shade-100">
+            <Link to="/" className="phones:hidden">
+              CBT
+              <span className="text-primary-shade-200">SmartLearning</span>
+            </Link>
+          </div>
+        }
+        open={isShowTokenMobile}
+        setOpen={setIsShowTokenMobile}
+        height="auto"
+        size="medium"
         noPadding
         customComponent={
           <ModalInputToken

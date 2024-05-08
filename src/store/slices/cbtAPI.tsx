@@ -32,7 +32,7 @@ export const cbtEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['ujian', 'soal', 'hasil', 'ranking'],
+      invalidatesTags: ['ujian', 'hasil', 'ranking'],
     }),
     getResetUjian: builder.query<void, SoalUjianParams>({
       query: ({ id_ujian }) => ({

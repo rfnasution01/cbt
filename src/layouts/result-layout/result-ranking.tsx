@@ -73,7 +73,7 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
 
   return (
     <div className="flex flex-col gap-y-32">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between phones:flex-col phones:gap-32">
         <div className="flex items-center gap-x-32">
           <button
             type="button"
@@ -117,7 +117,7 @@ export function ResultRanking({ idUjian }: { idUjian: string }) {
         </div>
         <input
           type="text"
-          className="w-6/12 rounded-lg border border-gray-300 p-16 text-[2rem] focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 phones:w-1/2"
+          className="w-6/12 rounded-lg border border-gray-300 p-16 text-[2rem] focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 phones:w-full"
           placeholder="Search"
           onChange={(e) => onSearch(e)}
         />

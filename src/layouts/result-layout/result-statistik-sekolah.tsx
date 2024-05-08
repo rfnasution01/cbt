@@ -14,12 +14,11 @@ export function StatistikSekolahPieChart({
 
   // Mengelompokkan jumlah siswa berdasarkan nama sekolah
   jsonData?.forEach((item) => {
-    const { sekolah, skor } = item
-    const jumlah_soal = parseInt(skor) // Mengubah skor ke dalam tipe number
+    const { sekolah } = item
     if (sekolahData[sekolah]) {
-      sekolahData[sekolah] += jumlah_soal
+      sekolahData[sekolah] += 1
     } else {
-      sekolahData[sekolah] = jumlah_soal
+      sekolahData[sekolah] = 1
     }
   })
 
