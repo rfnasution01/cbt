@@ -6,7 +6,9 @@ export type LoginType = {
 export type ResponseLoginType = {
   token: string
   change_password: boolean
+  update_profil: boolean
 }
+
 export type ChangePasswordType = {
   old_password: string
   new_password: string

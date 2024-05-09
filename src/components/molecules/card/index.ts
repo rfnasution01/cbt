@@ -1,0 +1,6 @@
+export * from './CardNews'
+export * from './CardNews2'
+export * from './CardDetailNews'
+export * from './cardDetailNews2'
+export * from './CardNewsSkeleton'
+export * from './CardNews2Skeleton'

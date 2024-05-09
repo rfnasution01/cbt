@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from '@/components/atoms/Form'
 import { Input } from '.'
+import { ReactNode } from 'react'
 
 export function FormLabelInput({
   form,
@@ -21,7 +22,7 @@ export function FormLabelInput({
   isDisabled,
 }: {
   form: UseFormReturn | undefined | any
-  label?: string
+  label?: string | ReactNode
   placeholder?: string
   name: string
   prefix?: JSX.Element

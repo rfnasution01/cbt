@@ -15,6 +15,7 @@ export const LoginEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['biodata', 'ujian'],
     }),
     createNewPassword: builder.mutation<void, { data: ChangePasswordType }>({
       query: ({ data }) => ({
