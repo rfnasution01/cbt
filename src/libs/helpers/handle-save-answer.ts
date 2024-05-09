@@ -42,7 +42,19 @@ export const handleSaveAnswer = (item, kodeUjian, noSoal, typeSoal, idSoal) => {
   } else {
     // Untuk jenis soal selain multiple, lakukan penanganan seperti sebelumnya
     if (existingAnswerIndex !== -1) {
-      newSmartlearningData.jawaban[existingAnswerIndex].jawab = item?.id
+      // Jika jawaban baru telah di pilih newSmartlearningData
+      if (
+        Number(newSmartlearningData.jawaban[existingAnswerIndex]?.jawab) ===
+        Number(item?.id)
+      ) {
+        // buat data baru tanpa nomor tersebut
+        const newData = newSmartlearningData?.jawaban.filter(
+          (obj) => obj.no !== noSoal,
+        )
+        newSmartlearningData.jawaban = newData
+      } else {
+        newSmartlearningData.jawaban[existingAnswerIndex].jawab = item?.id
+      }
     } else {
       newSmartlearningData.jawaban.push({
         no: noSoal,
@@ -54,4 +66,5 @@ export const handleSaveAnswer = (item, kodeUjian, noSoal, typeSoal, idSoal) => {
 
   // Simpan kembali data yang telah diperbarui ke localStorage
   localStorage.setItem('smartlearning', JSON.stringify(newSmartlearningData))
+  return newSmartlearningData
 }
