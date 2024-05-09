@@ -43,9 +43,9 @@ export const handleSaveAnswer = (item, kodeUjian, noSoal, typeSoal, idSoal) => {
     // Untuk jenis soal selain multiple, lakukan penanganan seperti sebelumnya
     if (existingAnswerIndex !== -1) {
       // Jika jawaban baru telah di pilih newSmartlearningData
+
       if (
-        Number(newSmartlearningData.jawaban[existingAnswerIndex]?.jawab) ===
-        Number(item?.id)
+        newSmartlearningData.jawaban[existingAnswerIndex]?.jawab === item?.id
       ) {
         // buat data baru tanpa nomor tersebut
         const newData = newSmartlearningData?.jawaban.filter(

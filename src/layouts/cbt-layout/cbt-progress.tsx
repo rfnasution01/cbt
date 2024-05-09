@@ -32,8 +32,6 @@ export function CBTProgress({
   const selisih = hitungSelisihMenit(startTime, now)
   const sisaWaktuSoal = durasi - selisih
 
-  console.log({ dijawab })
-
   return (
     <div className="flex flex-col gap-y-8 px-80 pt-32 text-[2rem] phones:px-32">
       {/* --- Text --- */}
