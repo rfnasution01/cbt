@@ -12,20 +12,18 @@ export function CBTProgress({
   idUjian: string
   isPercobaan?: boolean
 }) {
-  const smartlearningData = JSON.parse(
-    localStorage.getItem('smartlearning') || '{}',
-  )
-  const [dijawab, setDijawab] = useState<number>(
-    smartlearningData?.jawaban?.length,
-  )
+  const [dijawab, setDijawab] = useState<number>(0)
 
   useEffect(() => {
-    if (smartlearningData) {
-      setDijawab(smartlearningData?.jawaban?.length)
-    }
-  }, [smartlearningData])
-
-  const totalDijawab = smartlearningData?.jawaban?.length
+    setInterval(() => {
+      const smartlearningData = JSON.parse(
+        localStorage.getItem('smartlearning') || '{}',
+      )
+      if (smartlearningData) {
+        setDijawab(smartlearningData?.jawaban?.length)
+      }
+    }, 1000)
+  }, [])
 
   const mulaiUjian = JSON.parse(localStorage.getItem('mulaiujian') || '{}')
   const startTime = new Date(mulaiUjian.startTime)
@@ -33,6 +31,8 @@ export function CBTProgress({
   const now = new Date()
   const selisih = hitungSelisihMenit(startTime, now)
   const sisaWaktuSoal = durasi - selisih
+
+  console.log({ dijawab })
 
   return (
     <div className="flex flex-col gap-y-8 px-80 pt-32 text-[2rem] phones:px-32">
@@ -59,7 +59,7 @@ export function CBTProgress({
       <div className="h-[3rem] w-full rounded-full bg-indigo-200">
         <div
           className="h-full rounded-full bg-indigo-500"
-          style={{ width: `${(totalDijawab / totalSoal) * 100}%` }}
+          style={{ width: `${(dijawab / totalSoal) * 100}%` }}
         />
       </div>
     </div>
