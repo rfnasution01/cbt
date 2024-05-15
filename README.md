@@ -1,30 +1,36 @@
-# React + TypeScript + Vite
+# Dokumentasi Project CBT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Deskripsi Project
+**CBT** adalah aplikasi dalam bidang pendidikan yang dikembangkan oleh indosistem dalam pelayanan Computer Based Test
 
-Currently, two official plugins are available:
+## Demo
+**Visit**: [Production](https://cbt.smartlearning.id/login) atau [Deployment](https://cbt-nine.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Fitur Utama
+1. **Web App**: Aplikasi dapat diakses dari web seperti chrome dan mozilla 
+2. **Mobile App**: Aplikasi ini dapat di akses dimanapun anda berada
+3. **Responsibilitas**: Dengan aplikasi yang saling terintegritas ini dapat memudahkan anda dalam berinteraksi
 
-## Expanding the ESLint configuration
+## Instalasi
+Untuk menjalankan aplikasi di lokal, ikuti langkah berikut:
+1. Clone repositori dari github
+`` 
+git clone https://github.com/rfnasution01/cbt.git
+`` 
+2. Pindah ke directori project
+`` 
+cd cbt
+`` 
+3. Install dependensi menggunakan npm atau yarn
+`` 
+npm install atau
+yarn install
+`` 
+4. Jalankan aplikasi
+`` npm start atau
+yarn start
+`` 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Kontak
+Jika Anda memiliki pertanyaan atau masukan, jangan ragu untuk menghubungi tim pengembang melalui email rivaifnasution@gmail.com
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
